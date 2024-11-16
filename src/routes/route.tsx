@@ -1,12 +1,9 @@
 
 import { useRoutes } from "react-router-dom";
-import Dashboard from "../pages/dashboard/Dashboard";
+
 import Login from "../pages/login/Login";
-import SettingAdd from "../pages/setting/components/SettingAdd";
-import SettingEdit from "../pages/setting/components/SettingEdit";
-import SettingList from "../pages/setting/components/SettingList";
-import Spaces from "../pages/spaces/Spaces";
-import ListEdit from "../pages/setting/components/ListEdit";
+import Dashboard from "../pages/dashboard/Dashboard";
+
 
 
 
@@ -18,38 +15,14 @@ export default function Router() {
     return useRoutes([
       {
         path: "/",
-        element: <Dashboard/>,
+        element: <Login/>,
         children: [
           {
-            path: "/login",
-            element: <Login/>
-            ,
+            path: "/Dashboard",
+            element: <Dashboard/>
+            
           },       
-          {
-            path: "/settingAdd",
-            element: <SettingAdd/>
-            ,
-          },       
-          {
-            path: "/settingEdit",
-            element: <SettingEdit/>
-            ,
-          },       
-          {
-            path: "/settingList",
-            element: <SettingList/>
-            ,
-          },       
-          {
-            path: "/spaces",
-            element: <Spaces/>
-            ,
-          },       
-          {
-            path: "/listEdit",
-            element: <ListEdit/>
-            ,
-          },       
+           
        
         ],
       },
