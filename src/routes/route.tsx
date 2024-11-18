@@ -2,8 +2,7 @@
 import { useRoutes } from "react-router-dom";
 import Main from "../pages/main/Main";
 import Layouts from "../Layouts/Layouts";
-import Login from "../pages/login/Login";
-import Dashboard from "../pages/dashboard/Dashboard";
+import Home from "../pages/home/Home";
 
 // const MainPage = React.lazy(() => import("../page/MainPage/MainPage"));
 
@@ -17,7 +16,7 @@ export default function Router() {
           {
             path: "/",
             element: 
-            <Layouts pageshow={<Dashboard />} />
+            <Layouts pageshow={<Home />} />
             
           },       
            
