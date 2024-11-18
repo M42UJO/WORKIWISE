@@ -8,6 +8,7 @@ function App() {
       <Suspense>
         <Router />
       </Suspense>
+      
     </>
   );
 }

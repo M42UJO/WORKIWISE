@@ -1,7 +1,14 @@
+import DashboardAdd from "./components/DashboardAdd";
+import DashboardCard from "./components/DashboardCard";
+import DashboardSearch from "./components/DashboardSearch";
 
 function Dashboard() {
   return (
-    <div>Dashboard</div>
+    <main>
+      <DashboardSearch/>
+      <DashboardCard/>
+      <DashboardAdd/>
+    </main>
   )
 }
 

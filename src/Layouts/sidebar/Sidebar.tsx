@@ -1,9 +1,13 @@
+import SidebarFooter from "./components/SidebarFooter";
+import SidebarLogo from "./components/SidebarLogo";
+import SidebarNav from "./components/SidebarNav";
 
-
-function Sidebar() {
+export default function Sidebar() {
   return (
-    <div>Sidebar</div>
-  )
+    <aside className="h-screen w-64 flex flex-col bg-[#11111D] text-white">
+      <SidebarLogo />
+      <SidebarNav />
+      <SidebarFooter />
+    </aside>
+  );
 }
-
-export default Sidebar

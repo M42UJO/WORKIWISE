@@ -1,14 +1,21 @@
+import Sidebar from "./sidebar/Sidebar";
 
-export default function Layouts() {
-  return (
-    <div className="flex h-screen p-4">
-    
-
-    <main className="flex-grow p-6 rounded-md shadow-lg bg-[#F5F6FB]">
-      
-    
-    </main>
-  </div>
-  )
+interface LayoutProps {
+  pageshow: React.ReactNode; 
 }
 
+const Layouts: React.FC<LayoutProps> = ({ pageshow }) => {
+  return (
+    <div className="flex h-screen">
+      {/* Sidebar */}
+      <Sidebar />
+
+      {/* Main Content */}
+      <main className="flex-1 bg-gray-100 p-8 overflow-y-auto">
+        {pageshow}
+      </main>
+    </div>
+  );
+};
+
+export default Layouts;
