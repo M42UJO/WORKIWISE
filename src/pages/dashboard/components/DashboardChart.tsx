@@ -37,19 +37,19 @@ function DashboardChart() {
     };
 
     return (
-        <div className="flex space-x-8"> {/* Increase space between charts */}
+        <div className="flex space-x-4"> {/* Increase space between charts */}
             <div className="w-64 p-6 bg-white rounded-lg shadow-md text-center border border-gray-300">
                 <h2 className="text-xs font-semibold text-gray-800">Completed and Unfinished work</h2>
-                <div className="w-24 h-24 mx-auto mt-4">
+                <div className="w-40 h-40 mx-auto mt-4">
                     <Pie data={completedData} options={options} />
                 </div>
-                <div className="flex justify-around mt-4 text-xs text-gray-500">
+                <div className=" justify-around mt-4 text-xs text-gray-500 space-y-3">
                     <div className="flex items-center space-x-1">
-                        <span className="w-2 h-2 rounded-full bg-black"></span>
+                        <span className="w-3 h-3 rounded-full bg-black"></span>
                         <span>Completed</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                        <span className="w-2 h-2 rounded-full bg-gray-300"></span>
+                        <span className="w-3 h-3 rounded-full bg-gray-300"></span>
                         <span>Not Completed</span>
                     </div>
                 </div>
@@ -57,16 +57,16 @@ function DashboardChart() {
 
             <div className="w-64 p-6 bg-white rounded-lg shadow-md text-center border border-gray-300">
                 <h2 className="text-xs font-semibold text-gray-800">Manage work duties</h2>
-                <div className="w-24 h-24 mx-auto mt-4">
+                <div className="w-40 h-40 mx-auto mt-4">
                     <Pie data={dutiesData} options={options} />
                 </div>
-                <div className="flex justify-around mt-4 text-xs text-gray-500">
+                <div className="justify-around mt-4 text-xs text-gray-500 space-y-3">
                     <div className="flex items-center space-x-1">
-                        <span className="w-2 h-2 rounded-full bg-black"></span>
+                        <span className="w-3 h-3 rounded-full bg-black"></span>
                         <span>Mr. A</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                        <span className="w-2 h-2 rounded-full bg-gray-300"></span>
+                        <span className="w-3 h-3 rounded-full bg-gray-300"></span>
                         <span>Mr. B</span>
                     </div>
                 </div>

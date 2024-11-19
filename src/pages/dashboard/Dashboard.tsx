@@ -5,12 +5,15 @@ import DashboardFolder from './components/DashboardFolder';
 function Dashboard() {
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">Dashboard</h1>
-            <div className="flex space-x-4">
+            <p className="text-md font-bold text-gray-800 mb-6">Dashboard</p>
+            <div className="flex space-x-4 justify-center">
                 <DashboardCard />
                 <DashboardChart />
             </div>
+            <p className="text-md font-bold text-gray-800 mb-6">Folder</p>
+            <div className='flex justify-center'>
             <DashboardFolder />
+            </div>
         </div>
     );
 }
