@@ -15,17 +15,17 @@ export default function Router() {
         element: <Main/>,
         children: [
           {
-            path: "/",
+            path: "/dashboard",
             element: 
             <Layouts pageshow={<Dashboard />} />
             
           },       
-          // {
-          //   path: "/",
-          //   element: 
-          //   <Layouts pageshow={<Home />} />
+          {
+            path: "/home",
+            element: 
+            <Layouts pageshow={<Home />} />
             
-          // },       
+          },       
            
        
         ],

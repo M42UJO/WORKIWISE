@@ -1,4 +1,3 @@
-import React from 'react';
 import DashboardCard from './components/DashboardCard';
 import DashboardChart from './components/DashboardChart';
 import DashboardFolder from './components/DashboardFolder';
