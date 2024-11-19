@@ -54,7 +54,7 @@ function DashboardFolder() {
             <div className="flex items-center justify-between p-4 w-full text-gray-700 text-sm font-medium cursor-pointer hover:text-gray-900 border-b-2">
               <button
                 onClick={() => toggleFolder(folder.name)}
-                className="flex items-center"
+                className="flex items-center w-full "
               >
                 {/* Arrow Icon */}
                 <svg

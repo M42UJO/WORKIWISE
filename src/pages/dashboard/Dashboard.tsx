@@ -10,7 +10,7 @@ function Dashboard() {
                 <DashboardCard />
                 <DashboardChart />
             </div>
-            <p className="text-md font-bold text-gray-800 mb-6">Folder</p>
+            <p className="text-md font-bold text-gray-800 mb-6 mt-6">Folder</p>
             <div className='flex justify-center'>
             <DashboardFolder />
             </div>
