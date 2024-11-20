@@ -1,9 +1,27 @@
+import { useState } from "react";
+import LoginLogo from "./components/LoginLogo";
+import LoginVerification from "./components/LoginVerification";
+import Signin from "./components/Signin";
+import Signup from "./components/Signup";
 
 
 function Login() {
+  const [currentView, setCurrentView] = useState<"signup" | "signin" | "verification">("signin");
   return (
-    <div>Login</div>
-  )
-}
+    <div className="flex h-screen">
+      {/* Left Side - Logo Section */}
+      <div className="flex flex-col items-center justify-center w-1/2 bg-[#11111D]">
+        <LoginLogo />
+      </div>
+
+      {/* Right Side - Login Form */}
+      <div className="flex flex-col items-center justify-center w-1/2 bg-white">
+        {currentView === "signup" && <Signup switchView={setCurrentView} />}
+        {currentView === "signin" && <Signin switchView={setCurrentView} />}
+        {currentView === "verification" && <LoginVerification switchView={setCurrentView} />}
+      </div>
+    </div>
+  );
+};
 
 export default Login
