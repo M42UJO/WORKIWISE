@@ -1,13 +1,12 @@
-// pages/Home.tsx
 import React from "react";
-import SettingCard from "./components/SettingCard";
-const Home: React.FC = () => {
+import ProfileCard from "./components/SettingCard";
+
+const Setting: React.FC = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <SettingCard />
+    <div className="flex justify-center items-center h-screen">
+      <ProfileCard />
     </div>
-      
   );
 };
 
-export default Home;
+export default Setting;

@@ -1,9 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 export default function SidebarFooter() {
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate("/setting"); // ไปยังหน้าการตั้งค่า
+  };
+
   return (
-    <div className="p-6  bg-[#11111D]">
-      <a
-        href="#"
-        className="flex items-cente hover:text-white transition"
+    <div className="p-6 bg-[#11111D]">
+      <button
+        onClick={handleNavigation}
+        className="flex items-center w-full p-3 rounded-md hover:bg-gray-700 transition"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +19,7 @@ export default function SidebarFooter() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="size-6 ml-3 mr-3"
+          className="size-6 mr-3"
         >
           <path
             strokeLinecap="round"
@@ -25,8 +33,8 @@ export default function SidebarFooter() {
           />
         </svg>
 
-        <span className="text-medium">Setting</span>
-      </a>
+        <span className="text-white font-bold">Setting</span>
+      </button>
     </div>
   );
 }

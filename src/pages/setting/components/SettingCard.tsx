@@ -1,34 +1,35 @@
 import React from "react";
-import { FiUser, FiKey, FiInfo, FiLogOut } from "react-icons/fi"; // Icon imports
+import { FiUser, FiKey, FiInfo, FiLogOut } from "react-icons/fi";
 
 const ProfileCard: React.FC = () => {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
-      <div className="flex flex-col items-center">
-        <img
-          src="/path-to-avatar.jpg" // Replace with actual image path
-          alt="Profile"
-          className="w-24 h-24 rounded-full mb-4"
-        />
-        <h2 className="text-xl font-semibold text-gray-800">Mala_C</h2>
-        <ul className="mt-6 space-y-4 w-full">
-          <li className="flex items-center p-3 hover:bg-gray-100 rounded-md cursor-pointer">
-            <FiUser className="text-gray-500 mr-3" size={20} />
-            <span className="text-gray-700">Set up a user account</span>
-          </li>
-          <li className="flex items-center p-3 hover:bg-gray-100 rounded-md cursor-pointer">
-            <FiKey className="text-gray-500 mr-3" size={20} />
-            <span className="text-gray-700">Change password</span>
-          </li>
-          <li className="flex items-center p-3 hover:bg-gray-100 rounded-md cursor-pointer">
-            <FiInfo className="text-gray-500 mr-3" size={20} />
-            <span className="text-gray-700">Version 1.0</span>
-          </li>
-          <li className="flex items-center p-3 hover:bg-gray-100 rounded-md cursor-pointer">
-            <FiLogOut className="text-gray-500 mr-3" size={20} />
-            <span className="text-gray-700">Log out</span>
-          </li>
-        </ul>
+    <div className="w-80 border border-gray-200 rounded-lg shadow-md p-6 text-center">
+      {/* Profile Image */}
+      <img
+        src="https://via.placeholder.com/100" // Replace with your desired image source
+        alt="Profile"
+        className="w-24 h-24 rounded-full mx-auto mb-4 "
+      />
+      {/* Username */}
+      <h3 className="text-lg font-semibold mb-4">Mala_C</h3>
+      {/* Options List */}
+      <div className="text-left">
+        <div className="flex items-center p-3 cursor-pointer border-b border-gray-200 hover:bg-gray-50">
+          <FiUser className="mr-3" />
+          <span>Set up a user account</span>
+        </div>
+        <div className="flex items-center p-3 cursor-pointer border-b border-gray-200 hover:bg-gray-50">
+          <FiKey className="mr-3" />
+          <span>Change password</span>
+        </div>
+        <div className="flex items-center p-3 cursor-pointer border-b border-gray-200 hover:bg-gray-50">
+          <FiInfo className="mr-3" />
+          <span>Version 1.0</span>
+        </div>
+        <div className="flex items-center p-3 cursor-pointer hover:bg-gray-50">
+          <FiLogOut className="mr-3" />
+          <span>Log out</span>
+        </div>
       </div>
     </div>
   );
