@@ -4,7 +4,7 @@ export default function SidebarFooter() {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate("/setting"); // ไปยังหน้าการตั้งค่า
+    navigate("/setting");
   };
 
   return (
