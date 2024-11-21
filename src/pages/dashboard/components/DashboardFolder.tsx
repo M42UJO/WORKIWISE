@@ -17,10 +17,15 @@ const folders: Folder[] = [
     name: "Folder B",
     files: [],
   },
+  {
+    name: "Folder C",
+    files: [{ icon: "📂", name: "test.pdf" }],
+  },
 ];
 
 function DashboardFolder() {
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
+  const [searchTerm, setSearchTerm] = useState("");
 
   const toggleFolder = (folderName: string) => {
     setOpenFolders((prev) => ({
@@ -29,6 +34,15 @@ function DashboardFolder() {
     }));
   };
 
+  // ฟังก์ชันกรอง folder และ files ตามคำค้นหา
+  const filteredFolders = folders.filter(
+    (folder) =>
+      folder.name.toLowerCase().includes(searchTerm.toLowerCase()) || // Match folder name
+      folder.files.some((file) =>
+        file.name.toLowerCase().includes(searchTerm.toLowerCase()) // Match file name
+      )
+  );
+
   return (
     <div className="mt-8">
       {/* Search Bar */}
@@ -36,6 +50,8 @@ function DashboardFolder() {
         <input
           type="text"
           placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="w-[40rem] p-2 px-5 border border-gray-300 rounded-lg text-sm"
         />
         <button
@@ -48,7 +64,7 @@ function DashboardFolder() {
 
       {/* File Explorer */}
       <div className="space-y-2">
-        {folders.map((folder) => (
+        {filteredFolders.map((folder) => (
           <div key={folder.name}>
             {/* Folder Header */}
             <div className="flex items-center justify-between p-4 w-full text-gray-700 text-sm font-medium cursor-pointer hover:text-gray-900 border-b-2">
@@ -77,27 +93,33 @@ function DashboardFolder() {
                 <span className="mr-2">📁</span> {folder.name}
               </button>
               {/* Three Dots */}
-              <button className="text-gray-600 hover:text-gray-600 text-2xl text-boid">...</button>
+              <button className="text-gray-600 hover:text-gray-600 text-2xl text-boid">
+                ...
+              </button>
             </div>
 
             {/* Files Inside Folder */}
             {openFolders[folder.name] && folder.files.length > 0 && (
               <div className="space-y-2">
-                {folder.files.map((file, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between w-full p-4 border-b-2 pl-16"
-                  >
-                    <div className="flex items-center">
-                      <span className="mr-2">{file.icon}</span>
-                      <p>{file.name}</p>
+                {folder.files
+                  .filter((file) =>
+                    file.name.toLowerCase().includes(searchTerm.toLowerCase())
+                  )
+                  .map((file, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between w-full p-4 border-b-2 pl-16"
+                    >
+                      <div className="flex items-center">
+                        <span className="mr-2">{file.icon}</span>
+                        <p>{file.name}</p>
+                      </div>
+                      {/* Three Dots */}
+                      <button className="text-gray-600 hover:text-gray-600 text-2xl text-boid">
+                        ...
+                      </button>
                     </div>
-                    {/* Three Dots */}
-                    <button className="text-gray-600 hover:text-gray-600 text-2xl text-boid">
-                      ...
-                    </button>
-                  </div>
-                ))}
+                  ))}
               </div>
             )}
 
@@ -108,6 +130,10 @@ function DashboardFolder() {
             )}
           </div>
         ))}
+
+        {filteredFolders.length === 0 && (
+          <div className="px-4 py-2 text-gray-500 text-sm">No results found.</div>
+        )}
       </div>
     </div>
   );

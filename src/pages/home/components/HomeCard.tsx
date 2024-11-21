@@ -1,8 +1,8 @@
-import React from "react";
+
 import profile from "../../../assets/img/profile.jpg";
 import blank from "../../../assets/img/blank.jpg";
 
-const MainContent: React.FC = () => {
+export default function HomeCard() {
   return (
     <div className="p-8">
       {/* Title */}
@@ -45,5 +45,3 @@ const MainContent: React.FC = () => {
     </div>
   );
 };
-
-export default MainContent;

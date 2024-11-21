@@ -1,8 +1,8 @@
-import React from "react";
 
-const DashboardSearch: React.FC = () => {
+
+export default function HomeSearch() {
   return (
-<div className="absolute top-4 right-4">
+<div className="absolute top-4 right-4 m-6">
   <div className="flex items-center bg-transparent border border-gray-300 text-gray-500 rounded-full py-2 px-3 shadow-sm hover:bg-gray-100 w-24">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -29,4 +29,3 @@ const DashboardSearch: React.FC = () => {
   );
 };
 
-export default DashboardSearch;

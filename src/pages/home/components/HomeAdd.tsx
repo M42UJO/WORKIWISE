@@ -1,6 +1,6 @@
-import React from "react";
 
-const DashboardAdd: React.FC = () => {
+
+export default function HomeAdd(){
   return (
     <div className="absolute bottom-4 right-4">
       <button
@@ -26,4 +26,3 @@ const DashboardAdd: React.FC = () => {
   );
 };
 
-export default DashboardAdd;

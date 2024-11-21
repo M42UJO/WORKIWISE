@@ -1,18 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function SidebarFooter() {
-  const navigate = useNavigate();
 
-  const handleNavigation = () => {
-    navigate("/setting");
-  };
 
   return (
     <div className="p-6 bg-[#11111D]">
+      <Link to={'/setting'}>
       <button
-        onClick={handleNavigation}
+      
         className="flex items-center w-full p-3 rounded-md hover:bg-gray-700 transition"
       >
+        
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -35,6 +33,7 @@ export default function SidebarFooter() {
 
         <span className="text-white font-bold">Setting</span>
       </button>
+      </Link>
     </div>
   );
 }
