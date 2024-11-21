@@ -5,6 +5,7 @@ import Layouts from "../Layouts/Layouts";
 import Home from "../pages/home/Home";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Login from "../pages/login/Login";
+import Setting from "../pages/setting/Setting";
 
 // const MainPage = React.lazy(() => import("../page/MainPage/MainPage"));
 
@@ -30,6 +31,12 @@ export default function Router() {
             path: "/home",
             element: 
             <Layouts pageshow={<Home />} />
+            
+          },       
+          {
+            path: "/setting",
+            element: 
+            <Layouts pageshow={<Setting />} />
             
           },       
                  
