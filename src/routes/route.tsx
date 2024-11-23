@@ -5,6 +5,7 @@ import Home from "../pages/home/Home";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Login from "../pages/login/Login";
 import Setting from "../pages/setting/Setting";
+import Document from "../pages/document/Document";
 
 export default function Router() {
     return useRoutes([
@@ -27,6 +28,10 @@ export default function Router() {
           {
             path: "/setting",
             element: <Layouts pageshow={<Setting />} />,
+          },
+          {
+            path: "/document",
+            element: <Layouts pageshow={<Document />} />,
           },
 
 
