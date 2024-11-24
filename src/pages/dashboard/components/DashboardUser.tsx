@@ -1,8 +1,17 @@
 import blank from "../../../assets/img/blank.jpg";
+import { useState } from "react";
+import DashboardSettingPopup from "./DashboardSettingPopup";
+
 
 export default function DashboardUser() {
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const handleOpen = () => setPopupOpen(true);
+  const handleClose = () => setPopupOpen(false);
+
     return (
-        <div className="absolute top-4 right-4" >
+      <>
+        <div className="absolute top-4 right-4 cursor-pointer" onClick={handleOpen}>
           <div className="flex justify-between items-center space-x-4 p-4">
             <h3 className="font-bold text-base">User's Workspace</h3>
             <div className="rounded-full w-10 h-10 flex items-center justify-center">
@@ -11,6 +20,9 @@ export default function DashboardUser() {
             </div>
           </div>
         </div>
+              {/* Popup Component */}
+      <DashboardSettingPopup open={isPopupOpen} onClose={handleClose} />
 
+        </>
     );
 };

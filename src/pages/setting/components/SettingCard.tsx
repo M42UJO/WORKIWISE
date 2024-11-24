@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FiUser, FiKey, FiInfo, FiLogOut } from "react-icons/fi";
 import profile2 from "../../../assets/img/profile2.png";
 import SettingChangePasswordPopup from "./SettingChangpasswordPopup";
+import ArrowIcon from "../../../components/ArrowIcon";
 
 
 const ProfileCard: React.FC = () => {
@@ -24,16 +25,7 @@ const ProfileCard: React.FC = () => {
             <span>Set up a user account</span>
           </div>
           {/* Arrow Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-5 h-5 ml-auto transition-transform"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
+          <ArrowIcon />
         </div>
 
         <div className="flex items-center p-3 cursor-pointer justify-between hover:bg-gray-50"
@@ -43,20 +35,7 @@ const ProfileCard: React.FC = () => {
           </div>
           <span>Change password</span>
           {/* Arrow Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className='w-5 h-5 ml-auto transition-transform '
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
+          <ArrowIcon />
         </div>
         <SettingChangePasswordPopup
           open={isPopupOpen}
@@ -72,20 +51,7 @@ const ProfileCard: React.FC = () => {
           <FiLogOut className="mr-3" />
           <span>Log out</span>
           {/* Arrow Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className='w-5 h-5 ml-auto transition-transform '
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
+          <ArrowIcon />
         </div>
       </div>
     </div>

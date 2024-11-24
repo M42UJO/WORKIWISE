@@ -11,7 +11,7 @@ interface HomeAddPopupProps {
 const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
   const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
   const [workspaceName, setWorkspaceName] = React.useState<string>("");
-  const availableTags = ["API", "Finance", "Mobile", "Computer","Computer", "API", "Finance", "Mobile","Computer", "API", "Finance", "Mobile"];
+  const availableTags = ["API", "Finance", "Mobile", "Computer","Computer", "API", "Finance", "Mobile", "API", "Finance", "Mobile","Computer","Computer", "API", "Finance", "Mobile"];
 
   const toggleTagSelection = (tag: string) => {
     setSelectedTags((prevTags) =>
