@@ -49,18 +49,19 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
       }}
     >
       {/* Header */}
+      
       <div className="p-6 flex justify-between items-center">
-        <p className="text-lg font-bold mt-2">New Workspace</p>
+        <p className="text-lg font-bold ">New Workspace</p>
         <button
           onClick={onClose}
-          className="text-gray-500 hover:bg-gray-100 transition-colors duration-200 rounded-full p-1"
+          className="right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:bg-gray-100 transition-colors duration-200 rounded-full p-1"
         >
           <X className="h-4 w-4 text-gray-500" />
         </button>
       </div>
 
       {/* Content */}
-      <div className="flex-grow p-6 overflow-y-auto">
+      <div className="flex-grow px-6  overflow-y-auto">
         {/* Workspace Image */}
         <div className="flex flex-col items-center space-y-4">
           <div className="relative w-28 h-28 bg-gray-200 rounded-full overflow-hidden flex items-center justify-center">
@@ -101,7 +102,7 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
                 className={`px-5 py-2 text-xs rounded-lg border border-black ${
                   selectedTags.includes(tag)
                     ? "bg-black text-white"
-                    : "bg-white text-black border-gray-300"
+                    : "bg-white text-black border-black"
                 } hover:bg-gray-200 transition-colors`}
               >
                 {tag}
@@ -115,7 +116,7 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
       <div className="p-6">
         <button
           onClick={handleCreate}
-          className="bg-black hover:bg-gray-800 text-white py-2 w-full rounded-lg"
+          className="bg-black hover:bg-gray-800 text-white py-3 w-full rounded-lg"
         >
           Create
         </button>
