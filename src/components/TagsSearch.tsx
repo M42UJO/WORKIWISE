@@ -20,18 +20,19 @@ export default function TagsSearch() {
         className="w-full border border-[#AFAFAF] rounded-lg p-3 text-sm px-4 mb-4"
       />
       <div className="flex flex-wrap gap-2 justify-center overflow-y-auto mt-4">
-        {availableTags.map((tag) => (
+        {availableTags.map((tag, index) => (
           <button
-            key={tag}
+            key={`${tag}-${index}`}
             onClick={() => toggleTagSelection(tag)}
             className={`px-[21px] py-2 text-xs rounded-lg border border-black ${selectedTags.includes(tag)
-                ? "bg-black text-white"
-                : "bg-white text-black border-black"
+              ? "bg-black text-white"
+              : "bg-white text-black border-black"
               } hover:bg-gray-200 transition-colors`}
           >
             {tag}
           </button>
         ))}
+
       </div>
     </>
   )

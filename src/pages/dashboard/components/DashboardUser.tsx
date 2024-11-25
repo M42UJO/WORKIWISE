@@ -1,6 +1,7 @@
 import blank from "../../../assets/img/blank.jpg";
 import { useState } from "react";
-import DashboardSettingPopup from "./DashboardSettingPopup";
+import DashboardSettingPopup from "./settingpopup/DashboardSettingPopup";
+
 
 
 export default function DashboardUser() {

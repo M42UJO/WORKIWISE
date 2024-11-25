@@ -1,6 +1,7 @@
 import React from "react";
 import { Dialog } from "@mui/material";
-import bin from "../../../assets/img/bin.png";
+import bin from "/src/assets/img/binn.png";
+
 
 interface DashboardSettingDeletePopupProps {open: boolean;onClose: () => void;}
 
