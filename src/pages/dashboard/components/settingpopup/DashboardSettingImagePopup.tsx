@@ -1,8 +1,8 @@
-import space from "../../../assets/img/space.png";
+import space from "/src/assets/img/space.png";
 import React from "react";
 import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
-import ButtonSave from "../../../components/ButtonSave";
+import ButtonSave from "../../../../components/ButtonSave";
 
 interface DashboardSettingImagePopupProps {open: boolean;onClose: () => void;}
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
-import ArrowIcon from "../../../components/ArrowIcon";
+import ArrowIcon from "../../../../components/ArrowIcon";
 
 // Popup components
 import DashboardSettingImagePopup from "./DashboardSettingImagePopup";

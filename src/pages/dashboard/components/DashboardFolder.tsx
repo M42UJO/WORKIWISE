@@ -1,4 +1,8 @@
 import { useState } from "react";
+import DashboardSettingNewfolderPopup from "./newfolderpopup/DashboardSettingNewfolderPopup";
+import DashboardSettingFolderPopup from "./settingfolderpopup.tsx/DashboardSettingFolderPopup";
+import DashboardSettingDocumentPopup from "./settingdocumentpopup/DashboardSettingDocumentPopup";
+
 
 type Folder = {
   name: string;
@@ -26,6 +30,8 @@ const folders: Folder[] = [
 function DashboardFolder() {
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPopup, setCurrentPopup] = useState<string | null>(null); 
+  const [currentDocument, setCurrentDocument] = useState<string | null>(null); 
 
   const toggleFolder = (folderName: string) => {
     setOpenFolders((prev) => ({
@@ -34,12 +40,11 @@ function DashboardFolder() {
     }));
   };
 
-  // ฟังก์ชันกรอง folder และ files ตามคำค้นหา
   const filteredFolders = folders.filter(
     (folder) =>
-      folder.name.toLowerCase().includes(searchTerm.toLowerCase()) || // Match folder name
+      folder.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       folder.files.some((file) =>
-        file.name.toLowerCase().includes(searchTerm.toLowerCase()) // Match file name
+        file.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
   );
 
@@ -55,11 +60,16 @@ function DashboardFolder() {
           className="w-[40rem] p-2 px-5 border border-gray-300 rounded-lg text-sm"
         />
         <button
+          onClick={() => setCurrentPopup("newFolder")}
           type="submit"
           className="w-10 p-2 border border-gray-300 bg-white rounded-lg text-sm"
         >
           +
         </button>
+        <DashboardSettingNewfolderPopup
+          open={currentPopup === "newFolder"}
+          onClose={() => setCurrentPopup(null)}
+        />
       </div>
 
       {/* File Explorer */}
@@ -89,14 +99,19 @@ function DashboardFolder() {
                     d="M9 5l7 7-7 7"
                   />
                 </svg>
-                {/* Folder Icon */}
                 <span className="mr-2">📁</span> {folder.name}
               </button>
-              {/* Three Dots */}
-              <button className="text-gray-600 hover:text-gray-600 text-2xl text-boid">
+              <button
+                onClick={() => setCurrentPopup(folder.name)}
+                className="text-gray-600 hover:text-gray-600 text-2xl text-boid"
+              >
                 ...
               </button>
             </div>
+            <DashboardSettingFolderPopup
+              open={currentPopup === folder.name}
+              onClose={() => setCurrentPopup(null)}
+            />
 
             {/* Files Inside Folder */}
             {openFolders[folder.name] && folder.files.length > 0 && (
@@ -114,10 +129,16 @@ function DashboardFolder() {
                         <span className="mr-2">{file.icon}</span>
                         <p>{file.name}</p>
                       </div>
-                      {/* Three Dots */}
-                      <button className="text-gray-600 hover:text-gray-600 text-2xl text-boid">
+                      <button
+                        onClick={() => setCurrentDocument(file.name)} 
+                        className="text-gray-600 hover:text-gray-600 text-2xl text-boid"
+                      >
                         ...
                       </button>
+                      <DashboardSettingDocumentPopup
+                        open={currentDocument === file.name} 
+                        onClose={() => setCurrentDocument(null)} 
+                      />
                     </div>
                   ))}
               </div>
@@ -136,6 +157,13 @@ function DashboardFolder() {
         )}
       </div>
     </div>
+
+
+
+
+
+
+
   );
 }
 

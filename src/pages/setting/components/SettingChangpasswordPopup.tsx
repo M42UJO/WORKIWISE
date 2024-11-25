@@ -2,15 +2,9 @@ import React from "react";
 import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
 
-interface SettingChangePasswordPopupProps {
-  open: boolean;
-  onClose: () => void;
-}
+interface SettingChangePasswordPopupProps {open: boolean;onClose: () => void;}
 
-const SettingChangePasswordPopup: React.FC<SettingChangePasswordPopupProps> = ({
-  open,
-  onClose,
-}) => {
+const SettingChangePasswordPopup: React.FC<SettingChangePasswordPopupProps> = ({open,onClose,}) => {
 
 
   return (

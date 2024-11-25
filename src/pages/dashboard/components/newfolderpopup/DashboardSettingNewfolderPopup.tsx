@@ -1,15 +1,15 @@
 import React from "react";
 import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
-import ButtonSave from "../../../components/ButtonSave";
+import ButtonSave from "../../../../components/ButtonSave";
 
-import SetPermissions from "../../../components/SetPermissions";
+import SetPermissions from "../../../../components/SetPermissions";
 
-interface DashboardSettingPermissionsPopupProps { open: boolean; onClose: () => void; }
+interface DashboardSettingNewfolderPopupProps { open: boolean; onClose: () => void; }
 
 
 
-const DashboardSettingPermissionsPopup: React.FC<DashboardSettingPermissionsPopupProps> = ({ open, onClose, }) => {
+const DashboardSettingNewfolderPopup: React.FC<DashboardSettingNewfolderPopupProps> = ({ open, onClose, }) => {
 
 
 
@@ -30,8 +30,7 @@ const DashboardSettingPermissionsPopup: React.FC<DashboardSettingPermissionsPopu
             <div className="p-6">
                 {/* Header */}
                 <div className="flex justify-between items-center">
-                    <p className="text-lg font-bold mr-2">Permissions </p>
-                    <p className="mr-auto text-lg">User’s Workspace</p>
+                    <p className="text-lg font-bold mr-2">NewFolder </p>              
                     <button
                         onClick={onClose}
                         className="text-gray-500 hover:bg-gray-100 transition-colors duration-200 rounded-full p-1"
@@ -39,6 +38,14 @@ const DashboardSettingPermissionsPopup: React.FC<DashboardSettingPermissionsPopu
                         <X className="h-4 w-4 text-gray-500" />
                     </button>
                 </div>
+                <div className="mt-4">
+                <p className="text-sm font-bold p-1">Folder name :</p>
+                <input
+                    type="text"
+                    placeholder="Please enter folder name"                   
+                    className="w-full p-3 border border-[#AFAFAF] rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
+                />
+            </div>
 
                 <SetPermissions />
 
@@ -51,4 +58,4 @@ const DashboardSettingPermissionsPopup: React.FC<DashboardSettingPermissionsPopu
     );
 };
 
-export default DashboardSettingPermissionsPopup;
+export default DashboardSettingNewfolderPopup;

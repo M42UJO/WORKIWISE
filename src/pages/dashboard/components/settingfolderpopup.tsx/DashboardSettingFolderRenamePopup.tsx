@@ -3,11 +3,11 @@
 import React from "react";
 import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
-import ButtonSave from "../../../components/ButtonSave";
+import ButtonSave from "../../../../components/ButtonSave";
 
-interface DashboardSettingRenamePopupProps {open: boolean;onClose: () => void;}
+interface DashboardSettingFolderRenamePopupProps {open: boolean;onClose: () => void;}
 
-const DashboardSettingRenamePopup: React.FC<DashboardSettingRenamePopupProps> = ({open,onClose,}) => {
+const DashboardSettingFolderRenamePopup: React.FC<DashboardSettingFolderRenamePopupProps> = ({open,onClose,}) => {
 
 
   return (
@@ -53,4 +53,4 @@ const DashboardSettingRenamePopup: React.FC<DashboardSettingRenamePopupProps> = 
   );
 };
 
-export default DashboardSettingRenamePopup;
+export default DashboardSettingFolderRenamePopup;
