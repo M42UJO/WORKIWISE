@@ -4,15 +4,9 @@ import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
 import ButtonSave from "../../../components/ButtonSave";
 
-interface DashboardSettingImagePopupProps {
-    open: boolean;
-    onClose: () => void;
-}
+interface DashboardSettingImagePopupProps {open: boolean;onClose: () => void;}
 
-const DashboardSettingImagePopup: React.FC<DashboardSettingImagePopupProps> = ({
-    open,
-    onClose,
-}) => {
+const DashboardSettingImagePopup: React.FC<DashboardSettingImagePopupProps> = ({open,onClose,}) => {
 
 
     return (

@@ -10,22 +10,13 @@ import DashboardSettingTagsPopup from "./DashboardSettingTagsPopup";
 import DashboardSettingPermissionsPopup from "./DashboardSettingPermissionsPopup";
 import DashboardSettingDeletePopup from "./DashboardSettingDeletePopup";
 
-interface DashboardSettingPopupProps {
-    open: boolean;
-    onClose: () => void;
-}
+interface DashboardSettingPopupProps { open: boolean;onClose: () => void;}
 
-const DashboardSettingPopup: React.FC<DashboardSettingPopupProps> = (
-    {
-        open,
-        onClose,
-    }) => {
+const DashboardSettingPopup: React.FC<DashboardSettingPopupProps> = ({open,onClose,}) => {
 
     const [activePopup, setActivePopup] = useState<string | null>(null);
 
-    const handlePopupClose = () => {
-        setActivePopup(null);
-    };
+    const handlePopupClose = () => {setActivePopup(null);};
 
     return (
         <>

@@ -1,21 +1,13 @@
 
-
-
 import React from "react";
 import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
 import ButtonSave from "../../../components/ButtonSave";
 import TagsSearch from "../../../components/TagsSearch";
 
-interface DashboardSettingTagsPopupProps {
-    open: boolean;
-    onClose: () => void;
-}
+interface DashboardSettingTagsPopupProps {open: boolean; onClose: () => void;}
 
-const DashboardSettingTagsPopup: React.FC<DashboardSettingTagsPopupProps> = ({
-    open,
-    onClose,
-}) => {
+const DashboardSettingTagsPopup: React.FC<DashboardSettingTagsPopupProps> = ({open,onClose,}) => {
 
 
     return (

@@ -5,15 +5,9 @@ import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
 import ButtonSave from "../../../components/ButtonSave";
 
-interface DashboardSettingRenamePopupProps {
-  open: boolean;
-  onClose: () => void;
-}
+interface DashboardSettingRenamePopupProps {open: boolean;onClose: () => void;}
 
-const DashboardSettingRenamePopup: React.FC<DashboardSettingRenamePopupProps> = ({
-  open,
-  onClose,
-}) => {
+const DashboardSettingRenamePopup: React.FC<DashboardSettingRenamePopupProps> = ({open,onClose,}) => {
 
 
   return (
@@ -49,7 +43,7 @@ const DashboardSettingRenamePopup: React.FC<DashboardSettingRenamePopupProps> = 
           <input
             type="text"
             placeholder="User’s Workspace"
-            className="w-full border rounded-lg p-3 text-sm px-4"
+            className="w-full border border-[#AFAFAF] rounded-lg p-3 text-sm px-4"
           />
         </div>
         <ButtonSave />

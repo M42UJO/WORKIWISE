@@ -64,7 +64,7 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
             value={workspaceName}
             onChange={(e) => setWorkspaceName(e.target.value)}
             placeholder="e.g. My Workspace, Project Name"
-            className="w-full border rounded-lg p-3 text-sm px-4"
+            className="w-full border border-[#AFAFAF] rounded-lg p-3 text-sm px-4"
           />
         </div>
 

@@ -46,14 +46,14 @@ const SettingChangePasswordPopup: React.FC<SettingChangePasswordPopupProps> = ({
             <p className="text-sm font-bold p-1">Old password :</p>
             <input
               type="password"
-              className="w-full border rounded-lg p-3 text-sm px-4 mb-2"
+              className="w-full border border-[#AFAFAF] rounded-lg p-3 text-sm px-4 mb-2"
               placeholder="Please enter old password" />
           </div>
           <div>
             <p className="text-sm font-bold p-1">New password :</p>
             <input
               type="password"
-              className="w-full border rounded-lg p-3 text-sm px-4 mb-2"
+              className="w-full border border-[#AFAFAF] rounded-lg p-3 text-sm px-4 mb-2"
               placeholder="Please enter a new password" />
           </div>
           <div>
@@ -61,7 +61,7 @@ const SettingChangePasswordPopup: React.FC<SettingChangePasswordPopupProps> = ({
 
             <input
               type="password"
-              className="w-full border rounded-lg p-3 text-sm px-4 mb-2"
+              className="w-full border border-[#AFAFAF] rounded-lg p-3 text-sm px-4 mb-2"
               placeholder="Please confirm and enter a new password" />
           </div>
 

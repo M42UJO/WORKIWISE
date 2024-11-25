@@ -1,22 +1,10 @@
-
-
-
-
 import React from "react";
 import { Dialog } from "@mui/material";
-import { X } from "lucide-react";
+import bin from "../../../assets/img/bin.png";
 
-interface DashboardSettingDeletePopupProps {
-    open: boolean;
-    onClose: () => void;
-}
+interface DashboardSettingDeletePopupProps {open: boolean;onClose: () => void;}
 
-const DashboardSettingDeletePopup: React.FC<DashboardSettingDeletePopupProps> = ({
-    open,
-    onClose,
-}) => {
-
-
+const DashboardSettingDeletePopup: React.FC<DashboardSettingDeletePopupProps> = ({open,onClose,}) => {
     return (
         <Dialog
             open={open}
@@ -29,26 +17,37 @@ const DashboardSettingDeletePopup: React.FC<DashboardSettingDeletePopupProps> = 
                     maxWidth: 370,
                     overflow: "hidden",
                 },
-            }}>
+            }}
+        >
+            <div className="p-4 text-center">
+                {/* ไอคอน */}
+                <img
+                    src={bin}
+                    alt="bin icon"
+                    className="mx-auto w-16  mb-10 mt-6 "
+                />
 
+                {/* ข้อความ */}
+                <p className="text-2xl font-bold mb-14">
+                    Want to delete a Workspace?
+                </p>
 
-            <div className="p-4">
-                <div className="flex justify-between items-center">
-                    <p className="text-lg font-bold">User’s Workspace</p>
+                {/* ปุ่ม */}
+                <div className="flex justify-between space-x-3">
                     <button
                         onClick={onClose}
-                        className=" right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:bg-gray-100 transition-colors duration-200 rounded-full p-1"
+                        className="w-full py-3 bg-[#AFAFAF] text-white rounded-md hover:bg-gray-300"
                     >
-                        <X className="h-4 w-4 text-gray-500" />
+                        Cancel
                     </button>
+                    <button
 
-                </div>
-
-                <div className="flex flex-col space-y-2 mt-4">
-
+                        className="w-full py-3 bg-black text-white rounded-md hover:bg-gray-800"
+                    >
+                        Confirm
+                    </button>
                 </div>
             </div>
-
         </Dialog>
     );
 };
