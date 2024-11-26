@@ -22,7 +22,7 @@ const DashboardSettingPermissionsPopup: React.FC<DashboardSettingPermissionsPopu
             PaperProps={{
                 sx: {
                     borderRadius: "20px",
-                    maxWidth: 370,
+                    maxWidth: 400,
                     overflow: "hidden",
                 },
             }}

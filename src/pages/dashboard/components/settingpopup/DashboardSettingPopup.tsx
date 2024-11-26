@@ -47,35 +47,35 @@ const DashboardSettingPopup: React.FC<DashboardSettingPopupProps> = ({open,onClo
                     <div className="flex flex-col space-y-2 mt-4">
                         <div
                             onClick={() => setActivePopup("image")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer  py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0] cursor-pointer  py-3 px-6 w-full rounded-lg"
                         >
                             <p>Workspace Image</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("rename")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer  py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer  py-3 px-6 w-full rounded-lg"
                         >
                             <p>Rename Workspace</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("tags")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Tags Workspace</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("permissions")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Permissions Workspace</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("delete")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Delete Workspace</p>
                             <ArrowIcon />

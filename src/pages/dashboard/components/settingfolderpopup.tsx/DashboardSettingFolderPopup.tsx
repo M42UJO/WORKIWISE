@@ -48,49 +48,49 @@ const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = 
                     <div className="flex flex-col space-y-2 mt-4">
                         <div
                             // onClick={() => setActivePopup("Add Document")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer  py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer  py-3 px-6 w-full rounded-lg"
                         >
                             <p>Add Document</p>
                             <ArrowIcon />
                         </div>
                         <div
                             // onClick={() => setActivePopup("Add List")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer  py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer  py-3 px-6 w-full rounded-lg"
                         >
                             <p>Add List</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("Folder color")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Folder color</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("Permissions")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Permissions</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("Rename folder")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Rename folder</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("Move")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Move</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("Delete folder")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Delete folder</p>
                             <ArrowIcon />

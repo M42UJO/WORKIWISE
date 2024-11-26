@@ -73,11 +73,11 @@ function DashboardFolder() {
       </div>
 
       {/* File Explorer */}
-      <div className="space-y-2">
+      <div className="">
         {filteredFolders.map((folder) => (
           <div key={folder.name}>
             {/* Folder Header */}
-            <div className="flex items-center justify-between p-4 w-full text-gray-700 text-sm font-medium cursor-pointer hover:text-gray-900 border-b-2">
+            <div className="flex items-center justify-between p-4 w-full text-gray-700 text-sm font-medium cursor-pointer hover:bg-[#CECECE] border-b-2">
               <button
                 onClick={() => toggleFolder(folder.name)}
                 className="flex items-center w-full "
@@ -115,7 +115,7 @@ function DashboardFolder() {
 
             {/* Files Inside Folder */}
             {openFolders[folder.name] && folder.files.length > 0 && (
-              <div className="space-y-2">
+              <div className="">
                 {folder.files
                   .filter((file) =>
                     file.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -123,7 +123,7 @@ function DashboardFolder() {
                   .map((file, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between w-full p-4 border-b-2 pl-16"
+                      className="flex items-center justify-between w-full p-4 border-b-2 pl-16 hover:bg-[#CECECE]"
                     >
                       <div className="flex items-center">
                         <span className="mr-2">{file.icon}</span>
