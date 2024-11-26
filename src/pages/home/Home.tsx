@@ -4,11 +4,11 @@ import HomeSearch from "./components/HomeSearch";
 
 function Home() {
   return (
-    <main>
+    <>
       <HomeSearch/>
       <HomeCard/>
       <HomeAdd/>
-    </main>
+    </>
   )
 }
 

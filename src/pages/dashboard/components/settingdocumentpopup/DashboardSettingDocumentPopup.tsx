@@ -47,21 +47,21 @@ const DashboardSettingDocumentPopup: React.FC<DashboardSettingDocumentPopupProps
                     <div className="flex flex-col space-y-2 mt-4">
                         <div
                             onClick={() => setActivePopup("Permissions")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Permissions</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("Move")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Move</p>
                             <ArrowIcon />
                         </div>
                         <div
                             onClick={() => setActivePopup("Delete")}
-                            className="flex justify-between items-center bg-[#CECECE] cursor-pointer py-3 px-6 w-full rounded-lg"
+                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
                         >
                             <p>Delete</p>
                             <ArrowIcon />
