@@ -8,7 +8,7 @@ const Setting: React.FC = () => {
         <p>Setting</p>
       </div>
       <div className="flex justify-center items-center mt-36">
-        <ProfileCard />
+        {/* <ProfileCard /> */}
       </div>
     </>
 
