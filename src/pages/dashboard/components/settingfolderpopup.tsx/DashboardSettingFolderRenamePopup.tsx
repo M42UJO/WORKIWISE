@@ -27,7 +27,8 @@ const DashboardSettingFolderRenamePopup: React.FC<DashboardSettingFolderRenamePo
 
       <div className="p-4">
         <div className="flex justify-between items-center">
-          <p className="text-lg font-bold">Rename Workspace</p>
+        <p className="text-lg font-bold mr-2">Rename </p>
+        <p className="mr-auto text-lg">Folder</p>
           <button
             onClick={onClose}
             className=" right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:bg-gray-100 transition-colors duration-200 rounded-full p-1"
@@ -39,10 +40,10 @@ const DashboardSettingFolderRenamePopup: React.FC<DashboardSettingFolderRenamePo
 
         {/* Workspace Name Input */}
         <div className="w-full mb-6 mt-2">
-          <p className="text-sm font-bold p-1">Workspace name :</p>
+          <p className="text-sm font-bold p-1">Folder name :</p>
           <input
             type="text"
-            placeholder="User’s Workspace"
+            placeholder="Please enter folder name"
             className="w-full border border-[#AFAFAF] rounded-lg p-3 text-sm px-4"
           />
         </div>

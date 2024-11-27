@@ -3,8 +3,7 @@
 
 import React from "react";
 import { Dialog } from "@mui/material";
-import { X } from "lucide-react";
-import ButtonSave from "../../../../components/ButtonSave";
+import bin from "/src/assets/img/binn.png";
 
 interface DashboardSettingFolderDeletePopupProps {open: boolean;onClose: () => void;}
 
@@ -13,44 +12,48 @@ const DashboardSettingFolderDeletePopup: React.FC<DashboardSettingFolderDeletePo
 
   return (
     <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth="sm"
-      PaperProps={{
+    open={open}
+    onClose={onClose}
+    fullWidth
+    maxWidth="sm"
+    PaperProps={{
         sx: {
-          borderRadius: "10px",
-          maxWidth: 370,
-          overflow: "hidden",
+            borderRadius: "10px",
+            maxWidth: 370,
+            overflow: "hidden",
         },
-      }}>
+    }}
+>
+    <div className="p-4 text-center">
+        {/* ไอคอน */}
+        <img
+            src={bin}
+            alt="bin icon"
+            className="mx-auto w-16  mb-10 mt-6 "
+        />
 
+        {/* ข้อความ */}
+        <p className="text-2xl font-bold mb-14">
+            Want to delete a Folder?
+        </p>
 
-      <div className="p-4">
-        <div className="flex justify-between items-center">
-          <p className="text-lg font-bold">Rename Workspace</p>
-          <button
-            onClick={onClose}
-            className=" right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:bg-gray-100 transition-colors duration-200 rounded-full p-1"
-          >
-            <X className="h-4 w-4 text-gray-500" />
-          </button>
+        {/* ปุ่ม */}
+        <div className="flex justify-between space-x-3">
+            <button
+                onClick={onClose}
+                className="w-full py-3 bg-[#AFAFAF] text-white rounded-md hover:bg-gray-300"
+            >
+                Cancel
+            </button>
+            <button
 
+                className="w-full py-3 bg-black text-white rounded-md hover:bg-gray-800"
+            >
+                Confirm
+            </button>
         </div>
-
-        {/* Workspace Name Input */}
-        <div className="w-full mb-6 mt-2">
-          <p className="text-sm font-bold p-1">Workspace name :</p>
-          <input
-            type="text"
-            placeholder="User’s Workspace"
-            className="w-full border border-[#AFAFAF] rounded-lg p-3 text-sm px-4"
-          />
-        </div>
-        <ButtonSave />
-      </div>
-
-    </Dialog>
+    </div>
+</Dialog>
   );
 };
 

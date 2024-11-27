@@ -1,11 +1,8 @@
-
-
-
-
 import React from "react";
 import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
 import ButtonSave from "../../../../components/ButtonSave";
+import SetPermissions from "../../../../components/SetPermissions";
 
 interface DashboardSettingFolderPermissionPopupProps {open: boolean;onClose: () => void;}
 
@@ -29,7 +26,8 @@ const DashboardSettingFolderPermissionPopup: React.FC<DashboardSettingFolderPerm
 
       <div className="p-4">
         <div className="flex justify-between items-center">
-          <p className="text-lg font-bold">Rename Workspace</p>
+          <p className="text-lg font-bold mr-2">Permissions </p>
+          <p className="mr-auto text-lg">Folder A</p>
           <button
             onClick={onClose}
             className=" right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:bg-gray-100 transition-colors duration-200 rounded-full p-1"
@@ -38,16 +36,10 @@ const DashboardSettingFolderPermissionPopup: React.FC<DashboardSettingFolderPerm
           </button>
 
         </div>
-
-        {/* Workspace Name Input */}
-        <div className="w-full mb-6 mt-2">
-          <p className="text-sm font-bold p-1">Workspace name :</p>
-          <input
-            type="text"
-            placeholder="User’s Workspace"
-            className="w-full border border-[#AFAFAF] rounded-lg p-3 text-sm px-4"
-          />
+        <div className="mb-6">
+        <SetPermissions/>
         </div>
+
         <ButtonSave />
       </div>
 
