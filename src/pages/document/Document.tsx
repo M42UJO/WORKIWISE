@@ -1,19 +1,24 @@
 import DocumentAdd from "./components/DocumentAdd";
 import DocumentFile from "./components/DocumentFile";
+import DocumentHeader from "./components/DocumentHeader";
 
 function Document() {
   return (
-    <main className="p-6 bg-gray-100 min-h-screen flex gap-6">
-      {/* Document Add Section */}
-      <section className="flex-1">
-        <DocumentAdd />
-      </section>
+    <>
+    <main>
+      <div className="px-6">
+      <DocumentHeader />
+      </div>
+      <div className="p-6  flex gap-6">
 
-      {/* Document File Section */}
-      <section>
+        {/* Document Add Section */}
+        <DocumentAdd />
+
+        {/* Document File Section */}
         <DocumentFile />
-      </section>
-    </main>
+      </div>
+      </main>
+    </>
   );
 }
 

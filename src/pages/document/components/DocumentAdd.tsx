@@ -1,26 +1,32 @@
-import { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "react-quill/dist/quill.snow.css"; // ธีม Snow ของ Quill
 import ReactQuill from "react-quill";
 
 const DocumentAdd = () => {
   const [content, setContent] = useState("");
+  const quillRef = useRef<ReactQuill | null>(null);
 
   const handleChange = (value: string) => {
     setContent(value);
   };
 
-  return (
-    <div className="w-full h-[600px] bg-white border border-gray-300 rounded-lg shadow-lg flex flex-col">
-      {/* Header */}
-     
+  useEffect(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor(); // เข้าถึง instance ของ Quill editor
+      console.log(editor); // ทดสอบการเข้าถึง editor
+    }
+  }, []);
 
+  return (
+    <>
       {/* Editor */}
-      <div className="flex-1 p-4 overflow-y-auto">
+      <div className="w-3/4 h-[48rem] bg-white">
         <ReactQuill
+          ref={quillRef} // ใช้ ref เพื่อหลีกเลี่ยง findDOMNode
           value={content}
           onChange={handleChange}
           theme="snow"
-          placeholder="Start typing your content here..."
+          className="h-full pb-10"
           modules={{
             toolbar: [
               ["bold", "italic", "underline", "strike"], // ตัวหนา, เอียง, ขีดเส้นใต้, ขีดทับ
@@ -46,21 +52,9 @@ const DocumentAdd = () => {
             "link",
             "image",
           ]}
-          className="h-full"
         />
       </div>
-
-      {/* Footer */}
-      <div className="border-t border-gray-300 p-3 bg-gray-50 flex justify-end">
-        <button
-          type="button"
-          onClick={() => console.log(content)} // สามารถปรับการบันทึกข้อมูล
-          className="px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600"
-        >
-          Save
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 
