@@ -7,17 +7,18 @@ import DashboardSettingFolderMovePopup from "./DashboardSettingFolderMovePopup";
 import DashboardSettingFolderRenamePopup from "./DashboardSettingFolderRenamePopup";
 import DashboardSettingFolderPermissionPopup from "./DashboardSettingFolderPermissionPopup";
 import DashboardSettingFolderColorPopup from "./DashboardSettingFolderColorPopup";
+import { Link } from "react-router-dom";
 
 
 
 
-interface DashboardSettingFolderPopupProps { open: boolean;onClose: () => void;}
+interface DashboardSettingFolderPopupProps { open: boolean; onClose: () => void; }
 
-const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = ({open,onClose,}) => {
+const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = ({ open, onClose, }) => {
 
     const [activePopup, setActivePopup] = useState<string | null>(null);
 
-    const handlePopupClose = () => {setActivePopup(null);};
+    const handlePopupClose = () => { setActivePopup(null); };
 
     return (
         <>
@@ -46,15 +47,16 @@ const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = 
                     </div>
 
                     <div className="flex flex-col space-y-2 mt-4">
+                        <Link to="/document">
+                            <div
+                                className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer  py-3 px-6 w-full rounded-lg"
+                            >
+
+                                <p>Add Document</p>
+                                <ArrowIcon />
+                            </div>
+                        </Link>
                         <div
-                            // onClick={() => setActivePopup("Add Document")}
-                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer  py-3 px-6 w-full rounded-lg"
-                        >
-                            <p>Add Document</p>
-                            <ArrowIcon />
-                        </div>
-                        <div
-                            // onClick={() => setActivePopup("Add List")}
                             className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer  py-3 px-6 w-full rounded-lg"
                         >
                             <p>Add List</p>
@@ -100,12 +102,6 @@ const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = 
             </Dialog>
 
             {/* Sub Popups */}
-            {/* {activePopup === "Add Document" && (
-                <DashboardSettingImagePopup open={true} onClose={handlePopupClose} />
-            )}
-            {activePopup === "Add List" && (
-                <DashboardSettingRenamePopup open={true} onClose={handlePopupClose} />
-            )} */}
             {activePopup === "Folder color" && (
                 <DashboardSettingFolderColorPopup open={true} onClose={handlePopupClose} />
             )}
