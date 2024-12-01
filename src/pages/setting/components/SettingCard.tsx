@@ -3,9 +3,20 @@ import { FiUser, FiKey, FiInfo, FiLogOut } from "react-icons/fi";
 import profile2 from "../../../assets/img/profile2.png";
 import SettingChangePasswordPopup from "./SettingChangpasswordPopup";
 import ArrowIcon from "../../../components/ArrowIcon";
+import { useNavigate } from 'react-router-dom';
+
 
 
 const ProfileCard: React.FC = () => {
+  
+  const navigate = useNavigate();
+  // ฟังก์ชันสำหรับลบ Cookie และกลับไปหน้า Login
+  const handleLogout = () => {
+    document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // ลบ Cookie
+    navigate("/Login"); // เปลี่ยนเส้นทางกลับไปหน้า Login
+  };
+
+
   const [isPopupOpen, setPopupOpen] = useState(false);
   return (
     <div className="w-80 border border-gray-200 rounded-lg shadow-md p-6 text-center">
@@ -47,7 +58,7 @@ const ProfileCard: React.FC = () => {
           </div>
           <span>Version 1.0</span>
         </div>
-        <div className="flex items-center p-3  cursor-pointer justify-between hover:bg-gray-50">
+        <div className="flex items-center p-3  cursor-pointer justify-between hover:bg-gray-50" onClick={handleLogout}>
           <FiLogOut className="mr-3" />
           <span>Log out</span>
           {/* Arrow Icon */}
