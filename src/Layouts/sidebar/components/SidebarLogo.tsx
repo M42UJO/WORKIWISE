@@ -6,9 +6,8 @@ export default function SidebarLogo() {
   const [isSearchSidebarOpen, setSearchSidebarOpen] = useState(false);
 
   return (
-    <div>
-      {/* Main Logo Section */}
-      <div className="flex items-center p-6 bg-[#11111D]">
+    <>
+
         <img src={icon} alt="Workiwise Logo" className="h-7 w-7 mr-2" />
         <span className="text-white font-semibold text-lg">Workiwise</span>
         <button
@@ -30,12 +29,11 @@ export default function SidebarLogo() {
             />
           </svg>
         </button>
-      </div>
 
       {/* Sidebar Search Component */}
       {isSearchSidebarOpen && (
         <SidebarSearch onClose={() => setSearchSidebarOpen(false)} />
       )}
-    </div>
+    </>
   );
 }

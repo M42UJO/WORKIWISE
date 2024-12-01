@@ -5,7 +5,7 @@ export default function SidebarNav() {
   const [isWorkspaceOpen, setWorkspaceOpen] = useState(false);
 
   return (
-    <nav className="flex-1 px-4">
+
       <ul className="space-y-2">
         {/* Home */}
         <li>
@@ -91,6 +91,6 @@ export default function SidebarNav() {
           )}
         </li>
       </ul>
-    </nav>
+
   );
 }
