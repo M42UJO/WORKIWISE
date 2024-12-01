@@ -5,9 +5,17 @@ import HomeSearch from "./components/HomeSearch";
 function Home() {
   return (
     <>
-      <HomeSearch/>
-      <HomeCard/>
-      <HomeAdd/>
+      {/* Search Button */}
+      <div className="absolute top-4 right-4 m-6 cursor-pointer">
+        <HomeSearch />
+      </div>
+      <div className="p-8">
+        <HomeCard />
+      </div>
+      {/* Floating Action Button */}
+      <div className="absolute bottom-4 right-4">
+        <HomeAdd />
+      </div>
     </>
   )
 }
