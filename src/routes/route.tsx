@@ -6,7 +6,6 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import Login from "../pages/login/Login";
 import Setting from "../pages/setting/Setting";
 import Document from "../pages/document/Document";
-import AddList from "../pages/addlist/AddList";
 
 export default function Router() {
     return useRoutes([
@@ -33,10 +32,6 @@ export default function Router() {
           {
             path: "/document",
             element: <Layouts pageshow={<Document />} />,
-          },
-          {
-            path: "/addlist",
-            element: <Layouts pageshow={<AddList />} />,
           },
 
 
