@@ -4,7 +4,7 @@ import blank from "../../../assets/img/blank.jpg";
 
 export default function HomeCard() {
   return (
-    <div className="p-8">
+    <>
       {/* Title */}
       <h2 className="text-xl font-bold mb-4">Recent</h2>
       <div className="flex gap-x-14">
@@ -42,6 +42,6 @@ export default function HomeCard() {
           <p className="text-gray-600 text-xs">1 Total Task</p>
         </div>
       </div>
-    </div>
+    </>
   );
 };

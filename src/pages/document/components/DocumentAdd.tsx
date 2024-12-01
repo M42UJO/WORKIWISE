@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import "react-quill/dist/quill.snow.css"; // ธีม Snow ของ Quill
 import ReactQuill from "react-quill";
 
@@ -19,8 +19,7 @@ const DocumentAdd = () => {
 
   return (
     <>
-      {/* Editor */}
-      <div className="w-3/4 h-[48rem] bg-white">
+
         <ReactQuill
           ref={quillRef} // ใช้ ref เพื่อหลีกเลี่ยง findDOMNode
           value={content}
@@ -53,7 +52,6 @@ const DocumentAdd = () => {
             "image",
           ]}
         />
-      </div>
     </>
   );
 };

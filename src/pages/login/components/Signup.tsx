@@ -5,7 +5,7 @@ const Signup: React.FC<{ switchView: (view: "signup" | "signin" | "verification"
     return (
         <div className="flex items-center justify-center w-80">
             <div>
-           
+
                 {/* Header */}
                 <h2 className="text-2xl font-semibold text-center text-gray-900">Sign up</h2>
                 <p className="mt-4 text-sm text-center text-gray-500">
@@ -85,12 +85,12 @@ const Signup: React.FC<{ switchView: (view: "signup" | "signin" | "verification"
 
                 {/* Footer Links */}
                 <div className="text-center mt-4">
-                <button className=" border w-80 py-3 rounded-lg text-sm " onClick={() => switchView("signin")}>
-                Sign in with an existing account
-                </button>
+                    <button className=" border w-80 py-3 rounded-lg text-sm " onClick={() => switchView("signin")}>
+                        Sign in with an existing account
+                    </button>
+                </div>
             </div>
-            </div>
-            </div>
+        </div>
     );
 }
 

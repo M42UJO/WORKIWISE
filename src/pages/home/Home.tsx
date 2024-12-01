@@ -1,13 +1,16 @@
 import HomeAdd from "./components/HomeAdd";
 import HomeCard from "./components/HomeCard";
-import HomeSearch from "./components/HomeSearch";
 
 function Home() {
   return (
     <>
-      <HomeSearch/>
-      <HomeCard/>
-      <HomeAdd/>
+      <div className="p-6">
+        <HomeCard />
+      </div>
+      {/* Floating Action Button */}
+      <div className="absolute bottom-4 right-4">
+        <HomeAdd />
+      </div>
     </>
   )
 }

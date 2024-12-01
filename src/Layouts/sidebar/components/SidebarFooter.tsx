@@ -4,7 +4,7 @@ export default function SidebarFooter() {
 
 
   return (
-    <div className="p-6 bg-[#11111D]">
+
       <Link to={'/setting'}>
       <button
       
@@ -34,6 +34,5 @@ export default function SidebarFooter() {
         <span className="text-white font-bold">Setting</span>
       </button>
       </Link>
-    </div>
   );
 }
