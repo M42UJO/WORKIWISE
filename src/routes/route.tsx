@@ -1,4 +1,5 @@
 import { useRoutes, Navigate } from "react-router-dom";
+import { useAuthStore } from "../pages/login/components/store/useAuthStore"; 
 import Main from "../pages/main/Main";
 import Layouts from "../Layouts/Layouts";
 import Home from "../pages/home/Home";
@@ -10,6 +11,11 @@ import DashboardUser from "../pages/dashboard/components/DashboardUser";
 import HomeSearch from "../pages/home/components/HomeSearch";
 import SettingHeader from "../pages/setting/components/SettingHeader";
 
+// Component Check Login
+function PrivateRoute({ element }: { element: JSX.Element }) {
+  const loggedIn = useAuthStore((state) => state.loggedIn);
+  return loggedIn ? element : <Navigate to="/login" replace />;
+}
 
 export default function Router() {
   return useRoutes([
@@ -17,33 +23,48 @@ export default function Router() {
       path: "/",
       element: <Main />,
       children: [
+
         {
           path: "/login",
           element: <Login />,
         },
+
         {
           path: "/dashboard",
           element: (
-            <Layouts pageshow={<Dashboard />} headershow={<DashboardUser />}/>
-          )
+            <PrivateRoute
+              element={
+                <Layouts pageshow={<Dashboard />} headershow={<DashboardUser />} />
+              }
+            />
+          ),
         },
+
         {
           path: "/home",
-          element: <Layouts pageshow={<Home />} headershow={<HomeSearch />} />,
+          element: (
+            <PrivateRoute
+              element={<Layouts pageshow={<Home />} headershow={<HomeSearch />} />}
+            />
+          ),
         },
+
         {
           path: "/setting",
-          element: <Layouts pageshow={<Setting />} headershow={<SettingHeader />} />,
+          element: (
+            <PrivateRoute
+              element={<Layouts pageshow={<Setting />} headershow={<SettingHeader />} />}
+            />
+          ),
         },
+
         {
           path: "/document",
-          element: <Layouts pageshow={<Document />} />,
+          element: (
+            <PrivateRoute element={<Layouts pageshow={<Document />} />} />
+          ),
         },
 
-
-
-
-        // เปลี่ยนเส้นทางเริ่มต้น 
         {
           path: "/",
           element: <Navigate to="/login" replace />,
