@@ -1,18 +1,51 @@
+import { useState } from "react";
 import ButtonSave from "../../../components/ButtonSave";
 
 const DocumentFile = () => {
-  const files = [
+  const [files, setFiles] = useState([
     { name: "Api test.pdf", date: "9/9/2024", type: "PDF" },
     { name: "Flow.doc", date: "9/9/2024", type: "DOC" },
     { name: "Apiiiiii test.pdf", date: "9/9/2024", type: "PDF" },
     { name: "Flowwww.doc", date: "9/9/2024", type: "DOC" },
-  ];
+  ]);
+  
+  const [documentName, setDocumentName] = useState('');
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+
+  // Handle document name input change
+  const handleDocumentNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDocumentName(e.target.value);
+  };
+
+  // Handle file selection
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setSelectedFiles(e.target.files);
+    }
+  };
+
+  // Handle file upload
+  const handleFileUpload = () => {
+    if (selectedFiles) {
+      const newFiles = Array.from(selectedFiles).map((file) => ({
+        name: file.name,
+        date: new Date().toLocaleDateString(),
+        type: file.name.split('.').pop()?.toUpperCase() || "Unknown",
+      }));
+      setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    }
+  };
+
+  // Handle file delete
+  const handleDelete = (fileName: string) => {
+    setFiles(files.filter(file => file.name !== fileName));
+  };
 
   return (
     <>
       {/* Header */}
       <div className="flex mb-6">
-        <p className="text-lg  mr-2">In</p>
+        <p className="text-lg mr-2">In</p>
         <p className="mr-auto font-bold text-lg">User's Workspace</p>
       </div>
 
@@ -27,6 +60,8 @@ const DocumentFile = () => {
         <input
           type="text"
           id="document-name"
+          value={documentName}
+          onChange={handleDocumentNameChange}
           placeholder="Please enter document name"
           className="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         />
@@ -37,13 +72,21 @@ const DocumentFile = () => {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Attachment
         </label>
-        <button
-          type="button"
-          className="w-full flex items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-md text-gray-500 focus:outline-none"
-        >
-          Upload Attachment
-        </button>
+        <input
+          type="file"
+          multiple
+          onChange={handleFileSelect}
+          className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        />
       </div>
+
+      <button
+        type="button"
+        onClick={handleFileUpload}
+        className="w-full flex items-center justify-center px-4 py-2 border-2 border-solid border-blue-500 rounded-md text-blue-500 hover:bg-blue-50"
+      >
+        Upload Attachment
+      </button>
 
       {/* File List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
@@ -69,6 +112,7 @@ const DocumentFile = () => {
             {/* Delete Button */}
             <button
               type="button"
+              onClick={() => handleDelete(file.name)}
               className="text-gray-400 hover:text-red-500"
               aria-label="Delete file"
             >
@@ -77,7 +121,6 @@ const DocumentFile = () => {
           </div>
         ))}
       </div>
-
 
       {/* Save Button */}
       <div className="mt-auto">
