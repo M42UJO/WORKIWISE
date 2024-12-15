@@ -35,7 +35,7 @@ const Layouts: React.FC<LayoutProps> = ({ pageshow, headershow }) => {
       {/* Main Content */}
       <div className="flex-1 bg-gray-100 p-1 lg:p-8 overflow-y-auto">
         {/* Header for mobile with Hamburger Menu */}
-        <header className="flex items-center justify-between p-4 pb-0">
+        <header className="flex items-center justify-between  pb-0">
           {/* Hamburger Button */}
           <button
             className="lg:hidden text-gray-700 focus:outline-none"

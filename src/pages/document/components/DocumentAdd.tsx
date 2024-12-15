@@ -1,59 +1,62 @@
-import { useState, useRef, useEffect } from "react";
-import "react-quill/dist/quill.snow.css"; // ธีม Snow ของ Quill
+import React from "react";
 import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import hljs from "highlight.js";
+import "highlight.js/styles/monokai.css";
+import Quill from "quill"; 
+import "quill/dist/quill.snow.css";
 
-const DocumentAdd = () => {
-  const [content, setContent] = useState("");
-  const quillRef = useRef<ReactQuill | null>(null);
+// Add Syntax Module
+import QuillSyntax from "quill/modules/syntax";
+Quill.register("modules/syntax", QuillSyntax);
 
-  const handleChange = (value: string) => {
-    setContent(value);
+const QuillEditor: React.FC = () => {
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike"], 
+      [{ list: "ordered" }, { list: "bullet" }], 
+      [{ script: "sub" }, { script: "super" }], 
+      [{ indent: "-1" }, { indent: "+1" }], 
+      [{ align: [] }], 
+      ["link", "image", "code-block"], 
+      ["clean"], 
+    ],
+    syntax: {
+      highlight: (text: string) => hljs.highlightAuto(text).value,
+    },
   };
 
-  useEffect(() => {
-    if (quillRef.current) {
-      const editor = quillRef.current.getEditor(); // เข้าถึง instance ของ Quill editor
-      console.log(editor); // ทดสอบการเข้าถึง editor
-    }
-  }, []);
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "list",
+    "bullet",
+    "script",
+    "indent",
+    "align",
+    "link",
+    "image",
+    "code-block",
+  ];
+
 
   return (
-    <>
-
+    <div className="flex ">
+      <div className="w-full ">
         <ReactQuill
-          ref={quillRef} // ใช้ ref เพื่อหลีกเลี่ยง findDOMNode
-          value={content}
-          onChange={handleChange}
+          modules={modules}
+          formats={formats}
           theme="snow"
-          className="h-full pb-10"
-          modules={{
-            toolbar: [
-              ["bold", "italic", "underline", "strike"], // ตัวหนา, เอียง, ขีดเส้นใต้, ขีดทับ
-              [{ list: "ordered" }, { list: "bullet" }], // ลิสต์ตัวเลข, ลิสต์จุด
-              [{ header: [1, 2, 3, false] }], // ระดับหัวข้อ
-              [{ align: [] }], // จัดตำแหน่ง
-              [{ color: [] }, { background: [] }], // สีตัวอักษรและสีพื้นหลัง
-              ["link", "image"], // ลิงก์และรูปภาพ
-              ["clean"], // ล้างฟอร์แมต
-            ],
-          }}
-          formats={[
-            "bold",
-            "italic",
-            "underline",
-            "strike",
-            "list",
-            "bullet",
-            "header",
-            "align",
-            "color",
-            "background",
-            "link",
-            "image",
-          ]}
+          style={{ height: "724px" }}
         />
-    </>
+      </div>
+    </div>
   );
 };
 
-export default DocumentAdd;
+export default QuillEditor;

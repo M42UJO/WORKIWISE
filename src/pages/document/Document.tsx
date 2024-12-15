@@ -1,3 +1,4 @@
+import ButtonSave from "../../components/ButtonSave";
 import DocumentAdd from "./components/DocumentAdd";
 import DocumentFile from "./components/DocumentFile";
 import DocumentHeader from "./components/DocumentHeader";
@@ -15,6 +16,7 @@ function Document() {
           </div>
           <div className="w-1/4 bg-white p-6 rounded-lg shadow-md h-[48rem] flex flex-col">
             <DocumentFile />
+            <ButtonSave />
           </div>
         </div>
       </main>
