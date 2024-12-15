@@ -10,6 +10,7 @@ import Document from "../pages/document/Document";
 import DashboardUser from "../pages/dashboard/components/DashboardUser";
 import HomeSearch from "../pages/home/components/HomeSearch";
 import SettingHeader from "../pages/setting/components/SettingHeader";
+import AddList from "../pages/add/Addlist";
 
 // Component Check Login
 function PrivateRoute({ element }: { element: JSX.Element }) {
@@ -62,6 +63,13 @@ export default function Router() {
           path: "/document",
           element: (
             <PrivateRoute element={<Layouts pageshow={<Document />} />} />
+          ),
+        },
+        
+        {
+          path: "/addlist",
+          element: (
+            <PrivateRoute element={<Layouts pageshow={<AddList />} />} />
           ),
         },
 
