@@ -56,12 +56,14 @@ const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = 
                                 <ArrowIcon />
                             </div>
                         </Link>
-                        <div
-                            className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer  py-3 px-6 w-full rounded-lg"
-                        >
-                            <p>Add List</p>
-                            <ArrowIcon />
-                        </div>
+                        <Link to="/addlist">
+                            <div
+                                className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer  py-3 px-6 w-full rounded-lg"
+                            >
+                                <p>Add List</p>
+                                <ArrowIcon />
+                            </div>
+                        </Link>
                         <div
                             onClick={() => setActivePopup("Folder color")}
                             className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0]  cursor-pointer py-3 px-6 w-full rounded-lg"
