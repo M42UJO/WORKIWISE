@@ -57,12 +57,12 @@ function DashboardFolder() {
           placeholder="Search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full  p-2 px-5 border border-gray-300 rounded-lg text-sm"
+          className="w-full  p-3 px-5 border border-gray-300 rounded-lg text-sm"
         />
         <button
           onClick={() => setCurrentPopup("newFolder")}
           type="submit"
-          className="w-10 p-2 border border-gray-300 bg-white rounded-lg text-sm flex-shrink-0"
+          className="w-10 p-3 border border-gray-300 bg-white rounded-lg text-sm flex-shrink-0"
         >
           +
         </button>

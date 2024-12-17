@@ -13,20 +13,20 @@ export default function AddBody() {
           </thead>
           <tbody>
             <tr className="bg-gray-200 rounded shadow-sm text-center">
-              <td className="p-3 ">Task 1</td>
-              <td className="block bg-green-400 text-white text-center py-3">
+              <td className="p-2 ">Task 1</td>
+              <td className="block bg-green-400 text-white text-center py-2">
                 Complete
               </td>
-              <td className="p-3">5 days ago</td>
-              <td className="p-3">Tomorrow</td>
+              <td className="p-2">5 days ago</td>
+              <td className="p-2">Tomorrow</td>
             </tr>
             <tr className="bg-gray-200 rounded shadow-sm text-center">
-              <td className="p-3">Task 2</td>
-              <td className="block bg-red-400 text-white text-center  py-3">
+              <td className="p-2">Task 2</td>
+              <td className="block bg-red-400 text-white text-center  py-2">
                   Not Complete
               </td>
-              <td className="p-3">5 days ago</td>
-              <td className="p-3">Tomorrow</td>
+              <td className="p-2">5 days ago</td>
+              <td className="p-2">Tomorrow</td>
             </tr>
           </tbody>
         </table>
