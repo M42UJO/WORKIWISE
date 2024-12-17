@@ -1,8 +1,8 @@
-import React from "react";
-import { Dialog } from "@mui/material";
-import { X } from "lucide-react";
-import space from "../../../assets/img/space.png";
 import TagsSearch from "../../../components/TagsSearch";
+import space from "/src/assets/img/space.png";
+import React, { useState } from "react";
+import { Dialog } from "@mui/material";
+import { X, Camera } from "lucide-react";
 
 interface HomeAddPopupProps {
   open: boolean;
@@ -10,6 +10,15 @@ interface HomeAddPopupProps {
 }
 
 const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      setSelectedImage(imageURL);
+    }
+  };
   const [workspaceName, setWorkspaceName] = React.useState<string>("");
 
 
@@ -31,7 +40,7 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
       }}
     >
       {/* Header */}
-      
+
       <div className="p-6 flex justify-between items-center">
         <p className="text-lg font-bold ">New Workspace</p>
         <button
@@ -44,17 +53,34 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
 
       {/* Content */}
       <div className="flex-grow px-6  overflow-y-auto">
-        {/* Workspace Image */}       
-        <div className="flex flex-col items-center space-y-4">
-          <div className="relative w-28 h-28 bg-gray-200 rounded-full overflow-hidden flex items-center justify-center">
-            <img
-              src={space}
-              alt="Workspace"
-              className="w-full h-full object-cover"
+          {/* Workspace Image with Camera Icon */}
+          <div className="flex flex-col items-center space-y-4 p-6">
+            <label
+              htmlFor="image-upload"
+              className="relative w-28 h-28 rounded-full overflow-hidden cursor-pointer"
+            >
+              {/* Image */}
+              <img
+                src={selectedImage || space}
+                alt="Workspace"
+                className="w-full h-full object-cover"
+              />
+              {/* Gray Stripe Overlay with Camera Icon */}
+              <div className="absolute bottom-0 bg-gray-800/50 w-full h-8 flex items-center justify-center">
+                <Camera className="text-white w-5 h-5" />
+              </div>
+            </label>
+            <input
+              id="image-upload"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
             />
+                      <p className="text-sm font-bold">Workspace image</p>
           </div>
-          <p className="text-sm font-bold">Workspace image</p>
-        </div>
+
+
 
         {/* Workspace Name Input */}
         <div className="w-full mt-6">
@@ -70,7 +96,7 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
 
         {/* Tags Input */}
         <div className="w-full mt-4">
-          <TagsSearch/>
+          <TagsSearch />
         </div>
       </div>
 
