@@ -5,21 +5,25 @@ import DashboardSettingDocumentPopup from "./settingdocumentpopup/DashboardSetti
 
 type Folder = {
   name: string;
+  color: string;
   files: { icon: JSX.Element; name: string }[];
 };
 
-const FolderIcon = () => (
+interface FolderIconProps {
+  color?: string;
+}
+
+const FolderIcon: React.FC<FolderIconProps> = ({ color = "#F59E0B" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     width="16"
     height="16"
     fill="none"
-    stroke="currentColor"
+    stroke={color}
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="text-yellow-500"
   >
     <path d="M3 4h5l2 3h11v13H3z" />
     <path d="M3 8h18" />
@@ -44,9 +48,10 @@ const FileIcon = () => (
   </svg>
 );
 
-const folders: Folder[] = [
+const initialFolders: Folder[] = [
   {
     name: "Folder A",
+    color: "#F59E0B",
     files: [
       { icon: <FileIcon />, name: "aaa.doc" },
       { icon: <FileIcon />, name: "aaa" },
@@ -54,15 +59,18 @@ const folders: Folder[] = [
   },
   {
     name: "Folder B",
+    color: "#339CFF",
     files: [],
   },
   {
     name: "Folder C",
+    color: "#44FF33",
     files: [{ icon: <FolderIcon />, name: "test.pdf" }],
   },
 ];
 
 function DashboardFolder() {
+  const [folders, setFolders] = useState<Folder[]>(initialFolders);
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPopup, setCurrentPopup] = useState<string | null>(null);
@@ -73,6 +81,16 @@ function DashboardFolder() {
       ...prev,
       [folderName]: !prev[folderName],
     }));
+  };
+
+  const updateFolderColor = (folderName: string, newColor: string) => {
+    setFolders(prevFolders =>
+      prevFolders.map(folder =>
+        folder.name === folderName
+          ? { ...folder, color: newColor }
+          : folder
+      )
+    );
   };
 
   const filteredFolders = folders.filter(
@@ -132,7 +150,7 @@ function DashboardFolder() {
                     d="M9 5l7 7-7 7"
                   />
                 </svg>
-                <FolderIcon />
+                <FolderIcon color={folder.color} />
                 <span className="truncate ml-2">{folder.name}</span>
               </button>
               <button
@@ -145,6 +163,8 @@ function DashboardFolder() {
             <DashboardSettingFolderPopup
               open={currentPopup === folder.name}
               onClose={() => setCurrentPopup(null)}
+              folderName={folder.name}
+              onColorChange={updateFolderColor}
             />
 
             {/* Files Inside Folder */}
