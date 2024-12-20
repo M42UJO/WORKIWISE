@@ -3,18 +3,53 @@ import DashboardSettingNewfolderPopup from "./newfolderpopup/DashboardSettingNew
 import DashboardSettingFolderPopup from "./settingfolderpopup.tsx/DashboardSettingFolderPopup";
 import DashboardSettingDocumentPopup from "./settingdocumentpopup/DashboardSettingDocumentPopup";
 
-
 type Folder = {
   name: string;
-  files: { icon: string; name: string }[];
+  files: { icon: JSX.Element; name: string }[];
 };
+
+const FolderIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="text-yellow-500"
+  >
+    <path d="M3 4h5l2 3h11v13H3z" />
+    <path d="M3 8h18" />
+  </svg>
+);
+
+const FileIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="text-gray-500"
+  >
+    <path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+    <path d="M14 2v6h6" />
+  </svg>
+);
 
 const folders: Folder[] = [
   {
     name: "Folder A",
     files: [
-      { icon: "📄", name: "aaa.doc" },
-      { icon: "📋", name: "aaa" },
+      { icon: <FileIcon />, name: "aaa.doc" },
+      { icon: <FileIcon />, name: "aaa" },
     ],
   },
   {
@@ -23,7 +58,7 @@ const folders: Folder[] = [
   },
   {
     name: "Folder C",
-    files: [{ icon: "📂", name: "test.pdf" }],
+    files: [{ icon: <FolderIcon />, name: "test.pdf" }],
   },
 ];
 
@@ -57,7 +92,7 @@ function DashboardFolder() {
           placeholder="Search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full  p-3 px-5 border border-gray-300 rounded-lg text-sm"
+          className="w-full p-3 px-5 border border-gray-300 rounded-lg text-sm"
         />
         <button
           onClick={() => setCurrentPopup("newFolder")}
@@ -97,8 +132,8 @@ function DashboardFolder() {
                     d="M9 5l7 7-7 7"
                   />
                 </svg>
-                <span className="mr-2">📁</span>
-                <span className="truncate">{folder.name}</span>
+                <FolderIcon />
+                <span className="truncate ml-2">{folder.name}</span>
               </button>
               <button
                 onClick={() => setCurrentPopup(folder.name)}
@@ -125,8 +160,8 @@ function DashboardFolder() {
                       className="flex items-center justify-between w-full p-3 md:p-4 border-b-2 pl-12 md:pl-16 bg-gray-100 hover:bg-[#CECECE]"
                     >
                       <div className="flex items-center min-w-0">
-                        <span className="mr-2 flex-shrink-0">{file.icon}</span>
-                        <p className="truncate">{file.name}</p>
+                        {file.icon}
+                        <p className="truncate ml-2">{file.name}</p>
                       </div>
                       <button
                         onClick={() => setCurrentDocument(file.name)}
