@@ -11,6 +11,7 @@ interface DashboardSettingDocumentPopupProps {
   folderName: string;
   fileName: string;
   onDeleteFile: (folderName: string, fileName: string) => void;
+  onMoveFile?: (sourceFolder: string, targetFolder: string, fileName: string) => void;
 }
 const DashboardSettingDocumentPopup: React.FC<DashboardSettingDocumentPopupProps> = ({
   open,
@@ -18,6 +19,7 @@ const DashboardSettingDocumentPopup: React.FC<DashboardSettingDocumentPopupProps
   folderName,
   fileName,
   onDeleteFile,
+  onMoveFile,
 }) => {
   const [activePopup, setActivePopup] = useState<string | null>(null);
   const handlePopupClose = () => {
@@ -80,7 +82,13 @@ const DashboardSettingDocumentPopup: React.FC<DashboardSettingDocumentPopupProps
         <DashboardSettingDocumentPermissionPopup open={true} onClose={handlePopupClose} />
       )}
       {activePopup === "Move" && (
-        <DashboardSettingDocumentMovePopup open={true} onClose={handlePopupClose} />
+        <DashboardSettingDocumentMovePopup 
+          open={true} 
+          onClose={handlePopupClose}
+          sourceFolder={folderName}
+          fileName={fileName}
+          onMoveFile={onMoveFile}
+        />
       )}
       {activePopup === "Delete" && (
         <DashboardSettingDocumentDeletePopup 

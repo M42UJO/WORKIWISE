@@ -70,7 +70,31 @@ function DashboardFolder() {
   const [currentPopup, setCurrentPopup] = useState<string | null>(null);
   const [currentDocument, setCurrentDocument] = useState<string | null>(null);
   const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
-  // Add delete file function
+  // Add move file function
+  const moveFile = (sourceFolder: string, targetFolder: string, fileName: string) => {
+    console.log("Moving file:", fileName, "from", sourceFolder, "to", targetFolder);
+    setFolders(prevFolders => {
+      const fileToMove = prevFolders
+        .find(folder => folder.name === sourceFolder)
+        ?.files.find(file => file.name === fileName);
+      if (!fileToMove) return prevFolders;
+      return prevFolders.map(folder => {
+        if (folder.name === sourceFolder) {
+          return {
+            ...folder,
+            files: folder.files.filter(file => file.name !== fileName)
+          };
+        }
+        if (folder.name === targetFolder) {
+          return {
+            ...folder,
+            files: [...folder.files, fileToMove]
+          };
+        }
+        return folder;
+      });
+    });
+  };
   const deleteFile = (folderName: string, fileName: string) => {
     console.log("Deleting file:", fileName, "from folder:", folderName);
     setFolders(prevFolders =>
@@ -216,6 +240,7 @@ function DashboardFolder() {
                         folderName={selectedFolder || ""}
                         fileName={file.name}
                         onDeleteFile={deleteFile}
+                        onMoveFile={moveFile}
                       />
                     </div>
                   ))}
