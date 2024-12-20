@@ -2,17 +2,14 @@ import { useState } from "react";
 import DashboardSettingNewfolderPopup from "./newfolderpopup/DashboardSettingNewfolderPopup";
 import DashboardSettingFolderPopup from "./settingfolderpopup.tsx/DashboardSettingFolderPopup";
 import DashboardSettingDocumentPopup from "./settingdocumentpopup/DashboardSettingDocumentPopup";
-
 type Folder = {
   name: string;
   color: string;
   files: { icon: JSX.Element; name: string }[];
 };
-
 interface FolderIconProps {
   color?: string;
 }
-
 const FolderIcon: React.FC<FolderIconProps> = ({ color = "#F59E0B" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +26,6 @@ const FolderIcon: React.FC<FolderIconProps> = ({ color = "#F59E0B" }) => (
     <path d="M3 8h18" />
   </svg>
 );
-
 const FileIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +43,6 @@ const FileIcon = () => (
     <path d="M14 2v6h6" />
   </svg>
 );
-
 const initialFolders: Folder[] = [
   {
     name: "Folder A",
@@ -65,24 +60,49 @@ const initialFolders: Folder[] = [
   {
     name: "Folder C",
     color: "#44FF33",
-    files: [{ icon: <FolderIcon />, name: "test.pdf" }],
+    files: [{ icon: <FileIcon />, name: "test.pdf" }],
   },
 ];
-
 function DashboardFolder() {
   const [folders, setFolders] = useState<Folder[]>(initialFolders);
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPopup, setCurrentPopup] = useState<string | null>(null);
   const [currentDocument, setCurrentDocument] = useState<string | null>(null);
-
+  const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
+  // Add delete file function
+  const deleteFile = (folderName: string, fileName: string) => {
+    console.log("Deleting file:", fileName, "from folder:", folderName);
+    setFolders(prevFolders =>
+      prevFolders.map(folder =>
+        folder.name === folderName
+          ? { ...folder, files: folder.files.filter(file => file.name !== fileName) }
+          : folder
+      )
+    );
+    setCurrentDocument(null);
+  };
+  const deleteFolder = (folderName: string) => {
+    console.log("Deleting folder:", folderName);
+    setFolders(prevFolders => prevFolders.filter(folder => folder.name !== folderName));
+    setCurrentPopup(null); // Close the popup after deletion
+  };
+  const renameFolder = (oldName: string, newName: string) => {
+    console.log("Renaming folder from", oldName, "to", newName);
+    setFolders(prevFolders =>
+      prevFolders.map(folder =>
+        folder.name === oldName
+          ? { ...folder, name: newName }
+          : folder
+      )
+    );
+  };
   const toggleFolder = (folderName: string) => {
     setOpenFolders((prev) => ({
       ...prev,
       [folderName]: !prev[folderName],
     }));
   };
-
   const updateFolderColor = (folderName: string, newColor: string) => {
     setFolders(prevFolders =>
       prevFolders.map(folder =>
@@ -92,7 +112,6 @@ function DashboardFolder() {
       )
     );
   };
-
   const filteredFolders = folders.filter(
     (folder) =>
       folder.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -100,7 +119,6 @@ function DashboardFolder() {
         file.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
   );
-
   return (
     <>
       {/* Search Bar */}
@@ -124,7 +142,6 @@ function DashboardFolder() {
           onClose={() => setCurrentPopup(null)}
         />
       </div>
-
       {/* File Explorer */}
       <div className="w-full overflow-x-auto">
         {filteredFolders.map((folder) => (
@@ -165,8 +182,9 @@ function DashboardFolder() {
               onClose={() => setCurrentPopup(null)}
               folderName={folder.name}
               onColorChange={updateFolderColor}
+              onRename={renameFolder}
+              onDelete={deleteFolder}
             />
-
             {/* Files Inside Folder */}
             {openFolders[folder.name] && folder.files.length > 0 && (
               <div className="bg-white">
@@ -184,7 +202,10 @@ function DashboardFolder() {
                         <p className="truncate ml-2">{file.name}</p>
                       </div>
                       <button
-                        onClick={() => setCurrentDocument(file.name)}
+                        onClick={() => {
+                          setCurrentDocument(file.name);
+                          setSelectedFolder(folder.name);
+                        }}
                         className="text-gray-600 hover:text-gray-600 text-2xl text-bold px-2 flex-shrink-0"
                       >
                         ...
@@ -192,12 +213,14 @@ function DashboardFolder() {
                       <DashboardSettingDocumentPopup
                         open={currentDocument === file.name}
                         onClose={() => setCurrentDocument(null)}
+                        folderName={selectedFolder || ""}
+                        fileName={file.name}
+                        onDeleteFile={deleteFile}
                       />
                     </div>
                   ))}
               </div>
             )}
-
             {openFolders[folder.name] && folder.files.length === 0 && (
               <div className="px-12 md:px-16 py-4 text-gray-500 text-sm">
                 No files available.
@@ -205,7 +228,6 @@ function DashboardFolder() {
             )}
           </div>
         ))}
-
         {filteredFolders.length === 0 && (
           <div className="px-4 py-2 text-gray-500 text-sm">No results found.</div>
         )}
@@ -213,5 +235,4 @@ function DashboardFolder() {
     </>
   );
 }
-
 export default DashboardFolder;
