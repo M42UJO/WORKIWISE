@@ -8,30 +8,29 @@ import DashboardSettingFolderRenamePopup from "./DashboardSettingFolderRenamePop
 import DashboardSettingFolderPermissionPopup from "./DashboardSettingFolderPermissionPopup";
 import DashboardSettingFolderColorPopup from "./DashboardSettingFolderColorPopup";
 import { Link } from "react-router-dom";
-
 interface DashboardSettingFolderPopupProps {
   open: boolean;
   onClose: () => void;
   folderName: string;
   onColorChange: (folderName: string, color: string) => void;
+  onRename: (oldName: string, newName: string) => void;
+  onDelete: (folderName: string) => void;
 }
-
 const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = ({
   open,
   onClose,
   folderName,
   onColorChange,
+  onRename,
+  onDelete,
 }) => {
   const [activePopup, setActivePopup] = useState<string | null>(null);
-
   const handlePopupClose = () => {
     setActivePopup(null);
   };
-
   const handleColorChange = (color: string) => {
     onColorChange(folderName, color);
   };
-
   return (
     <>
       <Dialog
@@ -57,7 +56,6 @@ const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = 
               <X className="h-4 w-4 text-gray-500" />
             </button>
           </div>
-
           <div className="flex flex-col space-y-2 mt-4">
             <Link to="/document">
               <div className="flex justify-between items-center bg-[#CECECE] hover:bg-[#F0F0F0] cursor-pointer py-3 px-6 w-full rounded-lg">
@@ -109,7 +107,6 @@ const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = 
           </div>
         </div>
       </Dialog>
-
       {/* Sub Popups */}
       {activePopup === "Folder color" && (
         <DashboardSettingFolderColorPopup
@@ -122,16 +119,32 @@ const DashboardSettingFolderPopup: React.FC<DashboardSettingFolderPopupProps> = 
         <DashboardSettingFolderPermissionPopup open={true} onClose={handlePopupClose} />
       )}
       {activePopup === "Rename folder" && (
-        <DashboardSettingFolderRenamePopup open={true} onClose={handlePopupClose} />
+        <DashboardSettingFolderRenamePopup 
+          open={true} 
+          onClose={handlePopupClose}
+          folderName={folderName}
+          onRename={(newName) => {
+            onRename(folderName, newName);
+            handlePopupClose();
+            onClose();
+          }}
+        />
       )}
       {activePopup === "Move" && (
         <DashboardSettingFolderMovePopup open={true} onClose={handlePopupClose} />
       )}
       {activePopup === "Delete folder" && (
-        <DashboardSettingFolderDeletePopup open={true} onClose={handlePopupClose} />
+        <DashboardSettingFolderDeletePopup 
+          open={true} 
+          onClose={handlePopupClose}
+          onConfirm={() => {
+            onDelete(folderName);
+            handlePopupClose();
+            onClose();
+          }}
+        />
       )}
     </>
   );
 };
-
 export default DashboardSettingFolderPopup;
