@@ -5,6 +5,7 @@ import DocumentHeader from "./components/DocumentHeader";
 
 function Document() {
   const [currentContent, setCurrentContent] = useState("");
+  const [fileName, setFileName] = useState("exported-content.html");
 
   const handleExportHTML = () => {
     console.log('Exporting HTML:', currentContent);
@@ -14,7 +15,7 @@ function Document() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exported Content</title>
+  <title>${fileName.replace('.html', '')}</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
 </head>
 <body>
@@ -28,7 +29,7 @@ function Document() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'exported-content.html';
+    link.download = fileName || 'exported-content.html'; // ตั้งชื่อไฟล์จาก state
     link.click();
     URL.revokeObjectURL(url);
   };
@@ -44,7 +45,7 @@ function Document() {
             <DocumentAdd onExportContent={setCurrentContent} />
           </div>
           <div className="w-1/4 bg-white p-6 rounded-lg shadow-md h-[48rem] flex flex-col">
-            <DocumentFile />
+            <DocumentFile onSetFileName={setFileName} />
             <button 
               onClick={handleExportHTML}
               className="bg-black hover:bg-gray-800 text-white py-3 w-full rounded-lg"

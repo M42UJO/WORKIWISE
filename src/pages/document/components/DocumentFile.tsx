@@ -1,16 +1,20 @@
 import { useState } from "react";
 import bin from "/src/assets/img/binn.png";
 
-const DocumentFile = () => {
+const DocumentFile = ({ onSetFileName }: { onSetFileName: (name: string) => void }) => {
+  
   const [files, setFiles] = useState([
     { name: "Api test.pdf", date: "9/9/2024", type: "PDF" },
     { name: "Flow.doc", date: "9/9/2024", type: "DOC" },
   ]);
   const [documentName, setDocumentName] = useState("");
+  
 
   // Handle document name input change
   const handleDocumentNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDocumentName(e.target.value);
+    const name = e.target.value;
+    setDocumentName(name);
+    onSetFileName(name);
   };
 
   // Truncate file name if too long
