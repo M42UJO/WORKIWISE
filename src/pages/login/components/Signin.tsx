@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Auth from "../../../Auth";
 import { Authenticate } from "../../../auhv.json";
 import { useNavigate } from 'react-router-dom';
+import { setRecoil } from "recoil-nexus";
+import { Islogin } from "../../../MainRecoil";
 
 interface SigninProps {
   switchView: (view: "signin" | "signup" | "verification") => void;
@@ -16,27 +18,24 @@ const Signin: React.FC<SigninProps> = ({ switchView }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    Auth.Login(
-      Authenticate,
-      Username,
-      Password
-    ).then((res) => {
+    try {
+      const res = await Auth.Login(Authenticate, Username, Password);
       setLoading(false);
       if (res.Status === "Success") {
         console.log("Login Success");
+        setRecoil(Islogin, true); // อัปเดตสถานะล็อกอินใน Recoil
         navigate("/Home");
-
       } else {
         setError("Invalid username or password");
-        setPassword(""); 
+        setPassword("");
       }
-    }).catch((err) => {
+    } catch (err) {
       setLoading(false);
       setError("Something went wrong. Please try again.");
-    });
+    }
   };
 
   return (

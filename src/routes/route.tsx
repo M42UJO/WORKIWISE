@@ -1,5 +1,6 @@
 import { useRoutes, Navigate } from "react-router-dom";
-import { useAuthStore } from "../pages/login/components/store/useAuthStore"; 
+import { useRecoilValue } from "recoil";
+import { Islogin } from "../MainRecoil";
 import Main from "../pages/main/Main";
 import Layouts from "../Layouts/Layouts";
 import Home from "../pages/home/Home";
@@ -12,11 +13,10 @@ import HomeSearch from "../pages/home/components/HomeSearch";
 import SettingHeader from "../pages/setting/components/SettingHeader";
 import AddList from "../pages/add/Addlist";
 
-// Component Check Login
-function PrivateRoute({ element }: { element: JSX.Element }) {
-  const loggedIn = useAuthStore((state) => state.loggedIn);
-  return loggedIn ? element : <Navigate to="/login" replace />;
-}
+const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
+  const isLoggedIn = useRecoilValue(Islogin);
+  return isLoggedIn ? element : <Navigate to="/login" replace />;
+};
 
 export default function Router() {
   return useRoutes([
@@ -24,55 +24,30 @@ export default function Router() {
       path: "/",
       element: <Main />,
       children: [
-
         {
           path: "/login",
           element: <Login />,
         },
-
         {
           path: "/dashboard",
-          element: (
-            <PrivateRoute
-              element={
-                <Layouts pageshow={<Dashboard />} headershow={<DashboardUser />} />
-              }
-            />
-          ),
+          element: <ProtectedRoute element={<Layouts pageshow={<Dashboard />} headershow={<DashboardUser />} />} />,
         },
-
         {
           path: "/home",
-          element: (
-            <PrivateRoute
-              element={<Layouts pageshow={<Home />} headershow={<HomeSearch />} />}
-            />
-          ),
+          element: <ProtectedRoute element={<Layouts pageshow={<Home />} headershow={<HomeSearch />} />} />,
         },
-
         {
           path: "/setting",
-          element: (
-            <PrivateRoute
-              element={<Layouts pageshow={<Setting />} headershow={<SettingHeader />} />}
-            />
-          ),
+          element: <ProtectedRoute element={<Layouts pageshow={<Setting />} headershow={<SettingHeader />} />} />,
         },
-
         {
           path: "/document",
-          element: (
-            <PrivateRoute element={<Layouts pageshow={<Document />} />} />
-          ),
+          element: <ProtectedRoute element={<Layouts pageshow={<Document />} />} />,
         },
-        
         {
           path: "/addlist",
-          element: (
-            <PrivateRoute element={<Layouts pageshow={<AddList />} />} />
-          ),
+          element: <ProtectedRoute element={<Layouts pageshow={<AddList />} />} />,
         },
-
         {
           path: "/",
           element: <Navigate to="/login" replace />,

@@ -4,20 +4,17 @@ import profile2 from "../../../assets/img/profile2.png";
 import SettingChangePasswordPopup from "./SettingChangpasswordPopup";
 import ArrowIcon from "../../../components/ArrowIcon";
 import { useNavigate } from 'react-router-dom';
-
-
+import Auth from "../../../Auth";
 
 const ProfileCard: React.FC = () => {
-  
   const navigate = useNavigate();
-  // ฟังก์ชันสำหรับลบ Cookie และกลับไปหน้า Login
-  const handleLogout = () => {
-    document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // ลบ Cookie
-    navigate("/Login"); // เปลี่ยนเส้นทางกลับไปหน้า Login
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const handleLogout = async () => {
+    await Auth.LogOut();
+    navigate("/login");
   };
 
-
-  const [isPopupOpen, setPopupOpen] = useState(false);
   return (
     <div className="w-80 border border-gray-200 rounded-lg shadow-md p-6 text-center">
       {/* Profile Image */}
