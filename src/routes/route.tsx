@@ -1,5 +1,5 @@
-// src/routes/Router.tsx
 import { useRoutes, Navigate } from "react-router-dom";
+import { useAuthStore } from "../pages/login/components/store/useAuthStore"; 
 import Main from "../pages/main/Main";
 import Layouts from "../Layouts/Layouts";
 import Home from "../pages/home/Home";
@@ -11,30 +11,36 @@ import DashboardUser from "../pages/dashboard/components/DashboardUser";
 import HomeSearch from "../pages/home/components/HomeSearch";
 import SettingHeader from "../pages/setting/components/SettingHeader";
 import AddList from "../pages/add/Addlist";
-import PrivateRoute from "./PrivateRoute";
-import { useRecoilValue } from "recoil";
-import { authState } from "../store/authState";
+
+// Component Check Login
+function PrivateRoute({ element }: { element: JSX.Element }) {
+  const loggedIn = useAuthStore((state) => state.loggedIn);
+  return loggedIn ? element : <Navigate to="/login" replace />;
+}
 
 export default function Router() {
-  const loggedIn = useRecoilValue(authState);
-
   return useRoutes([
     {
       path: "/",
       element: <Main />,
       children: [
+
         {
           path: "/login",
           element: <Login />,
         },
+
         {
           path: "/dashboard",
           element: (
             <PrivateRoute
-              element={<Layouts pageshow={<Dashboard />} headershow={<DashboardUser />} />}
+              element={
+                <Layouts pageshow={<Dashboard />} headershow={<DashboardUser />} />
+              }
             />
           ),
         },
+
         {
           path: "/home",
           element: (
@@ -43,6 +49,7 @@ export default function Router() {
             />
           ),
         },
+
         {
           path: "/setting",
           element: (
@@ -51,24 +58,23 @@ export default function Router() {
             />
           ),
         },
+
         {
           path: "/document",
           element: (
             <PrivateRoute element={<Layouts pageshow={<Document />} />} />
           ),
         },
+        
         {
           path: "/addlist",
           element: (
             <PrivateRoute element={<Layouts pageshow={<AddList />} />} />
           ),
         },
+
         {
           path: "/",
-          element: <Navigate to={loggedIn ? "/dashboard" : "/login"} replace />,
-        },
-        {
-          path: "*",
           element: <Navigate to="/login" replace />,
         },
       ],
