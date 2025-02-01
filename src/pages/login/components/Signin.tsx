@@ -1,26 +1,28 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
-import { useAuthStore } from "./store/useAuthStore"; 
+import Auth from "../../../Auth";
+import { Authenticate } from "../../../auhv.json";
 
 const Signin: React.FC<{ switchView: (view: "signup" | "signin" | "verification") => void }> = ({ switchView }) => {
-    const [username, setUsername] = useState(""); // State username
-    const [password, setPassword] = useState(""); // State password
-    const [error, setError] = useState(""); 
+    const [Username, setUsername] = useState("");
+    const [Password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    const setLoggedIn = useAuthStore((state) => state.setLoggedIn); // Zustand action loggedIn
-    const navigate = useNavigate(); // Hook 
-
-    // funcion Login
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
-        
-        if (username === "Admin1234" && password === "Admin1234") {
-            setLoggedIn(true); 
-            navigate("/dashboard"); 
-        } else {
-            setError("Invalid username or password");
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault(); // ป้องกันการ refresh หน้า
+        try {
+            const res = await Auth.Login(Authenticate, Username, Password);
+            if (res.Status === "Success") {
+                console.log("Login Success");
+                // ทำอะไรบางอย่างหลังจากล็อกอินสำเร็จ เช่น redirect หรือบันทึก session
+            } else {
+                setError("Invalid username or password");
+                setPassword(""); // ล้างช่องรหัสผ่าน
+            }
+        } catch (err) {
+            console.error("Login Error:", err);
+            setError("Something went wrong. Please try again.");
         }
     };
 
@@ -40,8 +42,8 @@ const Signin: React.FC<{ switchView: (view: "signup" | "signin" | "verification"
                             id="username"
                             type="text"
                             placeholder="Please enter Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)} 
+                            value={Username}
+                            onChange={(e) => setUsername(e.target.value)}
                             className="w-full px-4 py-2 text-gray-900 placeholder-gray-400 focus:outline-none rounded-l-lg"
                         />
                         <span className="px-3 text-gray-500">
@@ -49,7 +51,7 @@ const Signin: React.FC<{ switchView: (view: "signup" | "signin" | "verification"
                         </span>
                     </div>
                 </div>
-                
+
                 <div>
                     <label htmlFor="password" className="block mb-1 text-sm font-semibold text-gray-600">
                         Password
@@ -59,8 +61,8 @@ const Signin: React.FC<{ switchView: (view: "signup" | "signin" | "verification"
                             id="password"
                             type="password"
                             placeholder="Please enter Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)} 
+                            value={Password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="w-full px-4 py-2 text-gray-900 placeholder-gray-400 focus:outline-none rounded-l-lg"
                         />
                         <span className="px-3 text-gray-500">
@@ -68,22 +70,22 @@ const Signin: React.FC<{ switchView: (view: "signup" | "signin" | "verification"
                         </span>
                     </div>
                 </div>
-                
+
                 {error && <p className="text-sm text-red-500">{error}</p>}
-                
+
                 <div className="flex items-center justify-between my-4">
                     <a href="#" className="text-sm text-blue-500 hover:underline focus:outline-none">
                         Forgot your password?
                     </a>
-                    <a
-                        href="#"
+                    <button
+                        type="button"
                         className="text-sm text-blue-500 hover:underline focus:outline-none"
                         onClick={() => switchView("signup")}
                     >
                         Sign up
-                    </a>
+                    </button>
                 </div>
-                
+
                 <button
                     type="submit"
                     className="w-full px-4 py-3 text-white bg-gray-900 rounded-lg hover:bg-gray-700 focus:outline-none"
@@ -91,7 +93,7 @@ const Signin: React.FC<{ switchView: (view: "signup" | "signin" | "verification"
                     Sign in
                 </button>
             </form>
-           
+
             <div className="mt-6">
                 <div className="relative flex items-center justify-center">
                     <div className="absolute w-full h-px bg-gray-300"></div>
@@ -110,7 +112,7 @@ const Signin: React.FC<{ switchView: (view: "signup" | "signin" | "verification"
                     </button>
                 </div>
             </div>
-            
+
             <div className="mt-6 w-80 text-center">
                 <button className="border w-80 py-3 rounded-lg text-sm">
                     Sign in with sub account &gt;

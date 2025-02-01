@@ -5,7 +5,7 @@ import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 
 function Login() {
-  const [currentView, setCurrentView] = useState<"signup" | "signin" | "verification">("signin");
+  const [currentView, setCurrentView] = useState<"signin" | "signup" | "verification">("signin");
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">
