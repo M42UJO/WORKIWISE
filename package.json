@@ -17,6 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/material": "^6.1.8",
     "@tinymce/tinymce-react": "^5.1.1",
+    "axios": "^1.7.9",
     "chart.js": "^4.4.6",
     "highlight.js": "^11.10.0",
     "lucide-react": "^0.460.0",
@@ -28,7 +29,10 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^7.0.1",
     "react-select": "^5.9.0",
+    "recoil": "^0.7.7",
+    "recoil-nexus": "^0.5.1",
     "tinymce": "^7.6.0",
+    "universal-cookie": "^7.2.2",
     "zustand": "^5.0.1"
   },
   "devDependencies": {

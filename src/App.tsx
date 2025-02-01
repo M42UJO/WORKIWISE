@@ -1,16 +1,16 @@
-import { Suspense } from "react";
-
+// src/App.tsx
+import React from "react";
+import { RecoilRoot } from "recoil";
+import RecoilNexus from "recoil-nexus";
 import Router from "./routes/route";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <Suspense>
-        <Router />
-      </Suspense>
-      
-    </>
+    <RecoilRoot>
+      <RecoilNexus />
+      <Router />
+    </RecoilRoot>
   );
-}
+};
 
 export default App;

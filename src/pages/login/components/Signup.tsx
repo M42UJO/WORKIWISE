@@ -76,8 +76,7 @@ const Signup: React.FC<{ switchView: (view: "signup" | "signin" | "verification"
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full px-4 py-3 text-white bg-gray-900 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
-                        onClick={() => switchView("verification")}
+                        className="w-full px-4 py-3 text-white bg-gray-900 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"                       
                     >
                         Sign up
                     </button>
