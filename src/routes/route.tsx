@@ -15,8 +15,14 @@ import AddList from "../pages/add/Addlist";
 
 const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
   const isLoggedIn = useRecoilValue(Islogin);
+
+  if (isLoggedIn === null) {
+    return <p>Loading...</p>; // ป้องกันการ Redirect ทันทีที่แอปเริ่มทำงาน
+  }
+
   return isLoggedIn ? element : <Navigate to="/login" replace />;
 };
+
 
 export default function Router() {
   return useRoutes([

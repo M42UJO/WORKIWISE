@@ -95,7 +95,7 @@ const Login = async (Authenticate: string, user: string, pass: string) => {
   return data;
 };
 
-const CurrentUser = async () => {
+export const CurrentUser = async () => {
   const tkmstate = await getRecoilPromise(tkState);
   if (tkmstate.mtk !== "") {
     const muserstate = await getRecoilPromise(UserState);
@@ -106,6 +106,18 @@ const CurrentUser = async () => {
     return "";
   }
 };
+
+export const CheckLoginStatus = async () => {
+  const mtk = cookies.get("mtk");
+  if (mtk) {
+    setMtk(); // อัปเดตค่า token ใน recoil
+    setUser(); // อัปเดตค่า user ใน recoil
+    setRecoil(Islogin, true); // ✅ ตั้งค่า Islogin เป็น true ถ้ามี token
+  } else {
+    setRecoil(Islogin, false); // ❌ ถ้าไม่มี token ถือว่าออกจากระบบ
+  }
+};
+
 
 const RefreshDataUser = async () => {
   const tkmstate = await getRecoilPromise(tkState);
