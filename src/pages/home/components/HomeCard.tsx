@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { tkState } from "../../../MainRecoil";
-import { useRecoilValue } from "recoil";
+import { GetdataAPI_Get } from "../../../MainCall";
 
 interface Tag {
   tag_id: number;
@@ -18,28 +16,27 @@ interface Workspace {
 
 export default function HomeCard() {
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
-  const tkmstate = useRecoilValue(tkState);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  async function fetchData() {
+    try {
+      const response = await GetdataAPI_Get("/api/Workspace/GetWorkspace");
+
+      console.log("API Response:", response); // Debug API response
+
+      if (Array.isArray(response)) {
+        setWorkspaces(response); // อัปเดต State
+      } else {
+        console.warn("Data is not an array:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching workspaces:", error);
+    } finally {
+      setLoading(false); // ✅ ปิดสถานะ Loading เมื่อโหลดข้อมูลเสร็จ
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://bsv-th-authorities.com/test_intern/api/Workspace/GetWorkspace",
-          {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${tkmstate.mtk}`,
-            },
-          }
-        );
-        if (Array.isArray(response.data)) {
-          setWorkspaces(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -47,7 +44,9 @@ export default function HomeCard() {
     <>
       <h2 className="text-xl font-bold mb-4">Recent</h2>
       <div className="flex flex-wrap gap-6">
-        {workspaces.length > 0 ? (
+        {loading ? (
+          <p>Loading...</p> // ✅ แสดงข้อความ Loading จนกว่าข้อมูลจะโหลดเสร็จ
+        ) : workspaces.length > 0 ? (
           workspaces.map((workspace) => (
             <div key={workspace.space_id} className="bg-gray-200 p-6 rounded-md shadow-md w-96">
               <div className="flex justify-between items-center">
@@ -71,8 +70,7 @@ export default function HomeCard() {
                   alt="User"
                   className="w-10 h-10 rounded-full mr-3 object-cover"
                 />
-                
-                {/* แสดง Tags แยก span */}
+
                 <div className="flex flex-wrap gap-2">
                   {workspace.tag_list && workspace.tag_list.length > 0 ? (
                     workspace.tag_list.map((tag) => (
@@ -98,7 +96,7 @@ export default function HomeCard() {
             </div>
           ))
         ) : (
-          <p>Loading...</p>
+          <p>No workspaces found.</p> // ✅ ถ้าไม่มีข้อมูล จะแสดงข้อความนี้
         )}
       </div>
     </>

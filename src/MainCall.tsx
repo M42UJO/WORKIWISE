@@ -63,6 +63,108 @@ export async function GetdataAPI_Outside(
   return data;
 }
 
+export async function GetdataAPI_Get(url: string, ccToken?: CancelTokenSource) {
+  let token = ccToken?.token;
+  const online = await getRecoilPromise(OnlineRec);
+  const tkmstate = await getRecoilPromise(tkState);
+
+  if (!online.isOnline) return { Status: "Offline" };
+
+  try {
+    const response = await axios.get(ResolveUrl("~" + url), {
+      withCredentials: true,
+      headers: {
+        "Authorization": "bearer " + tkmstate.mtk,
+        "sys": "WebApp"
+      },
+      cancelToken: token,
+    });
+    return response.data;
+  } catch (error) {
+    return handleError(error, url, "GET");
+  }
+}
+
+export async function GetdataAPI_Post(url: string, databody: any = {}, ccToken?: CancelTokenSource) {
+  let token = ccToken?.token;
+  const online = await getRecoilPromise(OnlineRec);
+  const tkmstate = await getRecoilPromise(tkState);
+
+  if (!online.isOnline) return { Status: "Offline" };
+
+  try {
+    const response = await axios.post(ResolveUrl("~" + url), JSON.stringify(databody), {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "bearer " + tkmstate.mtk,
+        "sys": "WebApp"
+      },
+      cancelToken: token,
+    });
+    return response.data;
+  } catch (error) {
+    return handleError(error, url, "POST");
+  }
+}
+
+export async function GetdataAPI_Put(url: string, databody: any = {}, ccToken?: CancelTokenSource) {
+  let token = ccToken?.token;
+  const online = await getRecoilPromise(OnlineRec);
+  const tkmstate = await getRecoilPromise(tkState);
+
+  if (!online.isOnline) return { Status: "Offline" };
+
+  try {
+    const response = await axios.put(ResolveUrl("~" + url), JSON.stringify(databody), {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "bearer " + tkmstate.mtk,
+        "sys": "WebApp"
+      },
+      cancelToken: token,
+    });
+    return response.data;
+  } catch (error) {
+    return handleError(error, url, "PUT");
+  }
+}
+
+export async function GetdataAPI_Del(url: string, ccToken?: CancelTokenSource) {
+  let token = ccToken?.token;
+  const online = await getRecoilPromise(OnlineRec);
+  const tkmstate = await getRecoilPromise(tkState);
+
+  if (!online.isOnline) return { Status: "Offline" };
+
+  try {
+    const response = await axios.delete(ResolveUrl("~" + url), {
+      withCredentials: true,
+      headers: {
+        "Authorization": "bearer " + tkmstate.mtk,
+        "sys": "WebApp"
+      },
+      cancelToken: token,
+    });
+    return response.data;
+  } catch (error) {
+    return handleError(error, url, "DELETE");
+  }
+}
+
+function handleError(error: any, url: string, method: string) {
+  if (axios.isCancel(error)) {
+    return { Status: "Cancle" };
+  } else if (error.response) {
+    if (error.response.status === 401) {
+      return GetdataAPISection(url, {}, undefined);
+    }
+  }
+  console.error(`Error in ${method} ${url}:`, error);
+  return { Status: "Error" };
+}
+
 export async function GetdataAPI(
   url: string,
   databody: any = {},
@@ -213,34 +315,34 @@ const GetdataAPISection = async (
   }
 };
 
-export const resizeImg = (file: File, size: number): Promise<string> =>
-  new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
+// export const resizeImg = (file: File, size: number): Promise<string> =>
+//   new Promise<string>((resolve, reject) => {
+//     const reader = new FileReader();
 
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = function () {
-        // Calculate the ratio to resize
-        const ratio = size / img.width;
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width * ratio;
-        canvas.height = img.height * ratio;
+//     reader.onload = (e) => {
+//       const img = new Image();
+//       img.onload = function () {
+//         // Calculate the ratio to resize
+//         const ratio = size / img.width;
+//         const canvas = document.createElement("canvas");
+//         canvas.width = img.width * ratio;
+//         canvas.height = img.height * ratio;
 
-        const ctx = canvas.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          const resizedDataUrl = canvas.toDataURL("image/jpeg", 0.5);
-          resolve(resizedDataUrl);
-        } else {
-          reject("Canvas context is not available");
-        }
-      };
-      img.src = String(e.target?.result); // Type-safe access to the event target
-    };
+//         const ctx = canvas.getContext("2d");
+//         if (ctx) {
+//           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+//           const resizedDataUrl = canvas.toDataURL("image/jpeg", 0.5);
+//           resolve(resizedDataUrl);
+//         } else {
+//           reject("Canvas context is not available");
+//         }
+//       };
+//       img.src = String(e.target?.result); // Type-safe access to the event target
+//     };
 
-    reader.onerror = (error) => {
-      reject(error);
-    };
+//     reader.onerror = (error) => {
+//       reject(error);
+//     };
 
-    reader.readAsDataURL(file); // Use file instead of files (single file upload)
-  });
+//     reader.readAsDataURL(file); // Use file instead of files (single file upload)
+//   });
