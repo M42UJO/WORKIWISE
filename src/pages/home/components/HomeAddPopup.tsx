@@ -1,12 +1,20 @@
 import TagsSearch from "../../../components/TagsSearch";
 import space from "/src/assets/img/space.png";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog } from "@mui/material";
 import { X, Camera } from "lucide-react";
+import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { tkState } from "../../../MainRecoil";
 
 interface HomeAddPopupProps {
   open: boolean;
   onClose: () => void;
+}
+
+interface Alltags {
+  tags_id: number;
+  tags_name: string;
 }
 
 const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
@@ -21,6 +29,31 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
   };
   const [workspaceName, setWorkspaceName] = React.useState<string>("");
 
+  const [alltags, setAlltags] = useState<Alltags[]>([]);
+  const tkmstate = useRecoilValue(tkState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://bsv-th-authorities.com/test_intern/api/Workspace/GetAllTags",
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${tkmstate.mtk}`, 
+            },
+          }
+        );
+        if (Array.isArray(response.data)) { // ตรวจสอบว่า response เป็น array
+          setAlltags(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Dialog
