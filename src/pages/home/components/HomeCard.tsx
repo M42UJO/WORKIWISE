@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { tkState } from "../../../MainRecoil"; 
+import { tkState } from "../../../MainRecoil";
 import { useRecoilValue } from "recoil";
+
+interface Tag {
+  tag_id: number;
+  tag_name: string;
+}
 
 interface Workspace {
   space_id: number;
   space_name: string;
   userweb_id: number;
-  tags_name: string;
   img_path: string;
+  tag_list: Tag[];
 }
 
 export default function HomeCard() {
@@ -23,11 +28,11 @@ export default function HomeCard() {
           {
             withCredentials: true,
             headers: {
-              Authorization: `Bearer ${tkmstate.mtk}`, 
+              Authorization: `Bearer ${tkmstate.mtk}`,
             },
           }
         );
-        if (Array.isArray(response.data)) { // ตรวจสอบว่า response เป็น array
+        if (Array.isArray(response.data)) {
           setWorkspaces(response.data);
         }
       } catch (error) {
@@ -66,13 +71,30 @@ export default function HomeCard() {
                   alt="User"
                   className="w-10 h-10 rounded-full mr-3 object-cover"
                 />
-                <span className="bg-white text-gray-800 text-xs px-8 h-10 py-3 rounded-full border border-gray-300">
-                  {workspace.tags_name || "No Tags"}
-                </span>
+                
+                {/* แสดง Tags แยก span */}
+                <div className="flex flex-wrap gap-2">
+                  {workspace.tag_list && workspace.tag_list.length > 0 ? (
+                    workspace.tag_list.map((tag) => (
+                      <span
+                        key={tag.tag_id}
+                        className="bg-white text-gray-800 text-xs px-4 py-2 rounded-full border border-gray-300"
+                      >
+                        {tag.tag_name}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="bg-white text-gray-800 text-xs px-4 py-2 rounded-full border border-gray-300">
+                      No Tags
+                    </span>
+                  )}
+                </div>
               </div>
 
               <hr className="border-t-2 border-gray-100 my-4 rounded-full" />
-              <p className="text-gray-600 text-xs">1 Total Tag</p>
+              <p className="text-gray-600 text-xs">
+                {workspace.tag_list.length} Total Tag{workspace.tag_list.length !== 1 ? "s" : ""}
+              </p>
             </div>
           ))
         ) : (
@@ -81,4 +103,4 @@ export default function HomeCard() {
       </div>
     </>
   );
-};
+}
