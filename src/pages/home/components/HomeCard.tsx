@@ -1,40 +1,42 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { tkState } from "../../../MainRecoil"; 
-import { useRecoilValue } from "recoil";
+import { GetdataAPI_Get } from "../../../MainCall";
+
+interface Tag {
+  tag_id: number;
+  tag_name: string;
+}
 
 interface Workspace {
   space_id: number;
   space_name: string;
   userweb_id: number;
-  tags_name: string;
   img_path: string;
+  tag_list: Tag[];
 }
 
 export default function HomeCard() {
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
-  const tkmstate = useRecoilValue(tkState);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  async function fetchData() {
+    try {
+      const response = await GetdataAPI_Get("/api/Workspace/GetWorkspace");
+
+      console.log("API Response:", response); // Debug API response
+
+      if (Array.isArray(response)) {
+        setWorkspaces(response); // อัปเดต State
+      } else {
+        console.warn("Data is not an array:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching workspaces:", error);
+    } finally {
+      setLoading(false); // ✅ ปิดสถานะ Loading เมื่อโหลดข้อมูลเสร็จ
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://bsv-th-authorities.com/test_intern/api/Workspace/GetWorkspace",
-          {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${tkmstate.mtk}`, 
-            },
-          }
-        );
-        if (Array.isArray(response.data)) { // ตรวจสอบว่า response เป็น array
-          setWorkspaces(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -42,7 +44,9 @@ export default function HomeCard() {
     <>
       <h2 className="text-xl font-bold mb-4">Recent</h2>
       <div className="flex flex-wrap gap-6">
-        {workspaces.length > 0 ? (
+        {loading ? (
+          <p>Loading...</p> // ✅ แสดงข้อความ Loading จนกว่าข้อมูลจะโหลดเสร็จ
+        ) : workspaces.length > 0 ? (
           workspaces.map((workspace) => (
             <div key={workspace.space_id} className="bg-gray-200 p-6 rounded-md shadow-md w-96">
               <div className="flex justify-between items-center">
@@ -66,19 +70,35 @@ export default function HomeCard() {
                   alt="User"
                   className="w-10 h-10 rounded-full mr-3 object-cover"
                 />
-                <span className="bg-white text-gray-800 text-xs px-8 h-10 py-3 rounded-full border border-gray-300">
-                  {workspace.tags_name || "No Tags"}
-                </span>
+
+                <div className="flex flex-wrap gap-2">
+                  {workspace.tag_list && workspace.tag_list.length > 0 ? (
+                    workspace.tag_list.map((tag) => (
+                      <span
+                        key={tag.tag_id}
+                        className="bg-white text-gray-800 text-xs px-4 py-2 rounded-full border border-gray-300"
+                      >
+                        {tag.tag_name}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="bg-white text-gray-800 text-xs px-4 py-2 rounded-full border border-gray-300">
+                      No Tags
+                    </span>
+                  )}
+                </div>
               </div>
 
               <hr className="border-t-2 border-gray-100 my-4 rounded-full" />
-              <p className="text-gray-600 text-xs">1 Total Tag</p>
+              <p className="text-gray-600 text-xs">
+                {workspace.tag_list.length} Total Tag{workspace.tag_list.length !== 1 ? "s" : ""}
+              </p>
             </div>
           ))
         ) : (
-          <p>Loading...</p>
+          <p>No workspaces found.</p> // ✅ ถ้าไม่มีข้อมูล จะแสดงข้อความนี้
         )}
       </div>
     </>
   );
-};
+}
