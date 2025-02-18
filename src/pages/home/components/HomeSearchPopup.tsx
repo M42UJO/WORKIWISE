@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog } from "@mui/material";
 import { X } from "lucide-react";
 import blank from "../../../assets/img/blank.jpg";
+import { GetdataAPI_Get } from "../../../MainCall";
 
-interface WorkspaceItem {
-  id: number;
-  name: string;
-  date: string;
+interface Workspace {
+  space_id: number;
+  space_name: string;
+  img_path: string;
+  created_at?: string;
 }
 
 interface HomeSearchPopupProps {
@@ -16,17 +18,28 @@ interface HomeSearchPopupProps {
 
 const HomeSearchPopup: React.FC<HomeSearchPopupProps> = ({ open, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [Workspace_Search, setWorkspace_Search] = useState<Workspace[]>([]);
 
-  // Example data for workspaces
-  const workspaces: WorkspaceItem[] = [
-    { id: 1, name: "User's Workspace", date: "Nov 10, 2022" },
-    { id: 2, name: "Team Workspace", date: "Dec 15, 2022" },
-    { id: 3, name: "Design Hub", date: "Jan 5, 2023" },
-    { id: 4, name: "Development Room", date: "Feb 20, 2023" },
-  ];
+  async function fetchData() {
+    try {
+      const response = await GetdataAPI_Get("/api/Workspace/GetWorkspace");
 
-  const filteredWorkspaces = workspaces.filter((workspace) =>
-    workspace.name.toLowerCase().includes(searchQuery.toLowerCase())
+      if (Array.isArray(response)) {
+        setWorkspace_Search(response);
+      } else {
+        console.warn("Data is not an array:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching workspaces:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const filteredWorkspaces = Workspace_Search.filter((workspace) =>
+    workspace.space_name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -44,7 +57,7 @@ const HomeSearchPopup: React.FC<HomeSearchPopupProps> = ({ open, onClose }) => {
         },
       }}
     >
-      <div className="relative bg-white ">
+      <div className="relative bg-white">
         {/* Search Input */}
         <div className="relative">
           <input
@@ -73,20 +86,26 @@ const HomeSearchPopup: React.FC<HomeSearchPopupProps> = ({ open, onClose }) => {
           {filteredWorkspaces.length > 0 ? (
             filteredWorkspaces.map((workspace) => (
               <div
-                key={workspace.id}
+                key={workspace.space_id}
                 className="group flex items-center space-x-3 p-3 px-6 rounded-lg
                             hover:bg-gray-100 transition-colors duration-200 cursor-pointer shadow-sm"
               >
                 <div className="flex-shrink-0">
                   <div className="w-10 h-10 flex items-center justify-center">
-                    <img src={blank} alt="Icon" className="rounded-full" />
+                    <img
+                      src={workspace.img_path || blank}
+                      alt="Icon"
+                      className="rounded-full w-10 h-10 object-cover"
+                    />
                   </div>
                 </div>
                 <div className="flex justify-between w-full items-center pl-4">
                   <p className="text-sm font-semibold text-gray-900">
-                    {workspace.name}
+                    {workspace.space_name}
                   </p>
-                  <p className="text-xs">Date: {workspace.date}</p>
+                  <p className="text-xs">
+                    Date: {workspace.created_at ? new Date(workspace.created_at).toLocaleDateString() : "N/A"}
+                  </p>
                 </div>
               </div>
             ))

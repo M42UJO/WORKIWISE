@@ -16,23 +16,18 @@ interface Workspace {
 
 export default function HomeCard() {
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
 
   async function fetchData() {
     try {
       const response = await GetdataAPI_Get("/api/Workspace/GetWorkspace");
 
-      console.log("API Response:", response); // Debug API response
-
       if (Array.isArray(response)) {
-        setWorkspaces(response); // อัปเดต State
+        setWorkspaces(response); 
       } else {
         console.warn("Data is not an array:", response);
       }
     } catch (error) {
       console.error("Error fetching workspaces:", error);
-    } finally {
-      setLoading(false); // ✅ ปิดสถานะ Loading เมื่อโหลดข้อมูลเสร็จ
     }
   }
 
@@ -44,9 +39,7 @@ export default function HomeCard() {
     <>
       <h2 className="text-xl font-bold mb-4">Recent</h2>
       <div className="flex flex-wrap gap-6">
-        {loading ? (
-          <p>Loading...</p> // ✅ แสดงข้อความ Loading จนกว่าข้อมูลจะโหลดเสร็จ
-        ) : workspaces.length > 0 ? (
+        {workspaces.length > 0 ? (
           workspaces.map((workspace) => (
             <div key={workspace.space_id} className="bg-gray-200 p-6 rounded-md shadow-md w-96">
               <div className="flex justify-between items-center">
@@ -91,12 +84,12 @@ export default function HomeCard() {
 
               <hr className="border-t-2 border-gray-100 my-4 rounded-full" />
               <p className="text-gray-600 text-xs">
-                {workspace.tag_list.length} Total Tag{workspace.tag_list.length !== 1 ? "s" : ""}
+                0 Total Folder
               </p>
             </div>
           ))
         ) : (
-          <p>No workspaces found.</p> // ✅ ถ้าไม่มีข้อมูล จะแสดงข้อความนี้
+          <p>No workspaces found.</p>
         )}
       </div>
     </>
