@@ -1,26 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { GetdataAPI_Get } from "../../../MainCall";
 
 interface SidebarSearchProps {
   onClose: () => void;
 }
 
+interface Workspace {
+  space_id: number;
+  space_name: string;
+}
+
 export default function SidebarSearch({ onClose }: SidebarSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const items = [
-    "Home",
-    "User's Workspace",
-    "User's Workspace 2",
-    "Change password",
-  ];
+  const [Workspace_Search, setWorkspace_Search] = useState<Workspace[]>([]);
 
-  // Filter items based on search term
-  const filteredItems = items.filter((item) =>
-    item.toLowerCase().includes(searchTerm.toLowerCase())
+  async function fetchData() {
+    try {
+      const response = await GetdataAPI_Get("/api/Workspace/GetWorkspace");
+
+      if (Array.isArray(response)) {
+        setWorkspace_Search(response);
+      } else {
+        console.warn("Data is not an array:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching workspaces:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const filteredItems = Workspace_Search.filter((workspace) =>
+    workspace.space_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="fixed top-0 left-0 h-screen w-64 bg-[#11111D] text-white shadow-lg z-50 px-6">
-      {/* Header with Search Input */}
+ 
       <div className="flex items-center pt-6 border-b border-white">
         <button
           onClick={onClose}
@@ -54,12 +72,12 @@ export default function SidebarSearch({ onClose }: SidebarSearchProps) {
       {/* Menu Items */}
       <ul className="space-y-2">
         {filteredItems.length > 0 ? (
-          filteredItems.map((item, index) => (
+          filteredItems.map((workspace) => (
             <li
-              key={index}
+              key={workspace.space_id}
               className="py-2 px-4 text-white hover:bg-gray-700 rounded-md cursor-pointer"
             >
-              {item}
+              {workspace.space_name}
             </li>
           ))
         ) : (

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Select from "react-select";
-import { useRecoilValue } from "recoil";
-import { tkState } from "../MainRecoil"; 
+import { GetdataAPI_Get } from "../MainCall";
 
 interface Tag {
   value: string;
@@ -12,51 +10,35 @@ interface Tag {
 export default function TagsSearch() {
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
-  
 
-  const tkmstate = useRecoilValue(tkState);
+  async function fetchData() {
+    try {
+      const response = await GetdataAPI_Get("/api/Workspace/GetAllTags");
+
+      if (Array.isArray(response)) {
+        setTags(response);
+      } else {
+        console.warn("Data is not an array:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching tags:", error);
+    }
+  }
 
   useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await axios.get("https://bsv-th-authorities.com/test_intern/api/Workspace/GetAllTags", {
-          headers: {
-            Authorization: `Bearer ${tkmstate.mtk}`,
-          },
-        });
-  
-        console.log("API Response:", response.data); 
-  
-        const formattedTags = response.data.map((tag: any) => ({
-          value: tag.tags_id.toString(),
-          label: tag.tags_name,
-        }));
-        setTags(formattedTags);
-      } catch (error: any) {
-        console.error("Error fetching tags:", error);
-        if (error.response) {
-          console.error("Server Response:", error.response.data); 
-        }
-      }
-    };
-  
-    fetchTags();
-  }, [tkmstate]); 
-  
- 
+    fetchData();
+  }, []);
+
   const recommendedTags = tags.slice(0, 4);
 
-  // จัดการการเลือก tags
-  const handleTagChange = (selectedOptions: any) => {
+  const handleTagChange = (selectedOptions: Tag[] | null) => {
     setSelectedTags(selectedOptions || []);
   };
 
-  // ลบ tag เมื่อกดปุ่ม
   const removeTag = (tagValue: string) => {
     setSelectedTags((prev) => prev.filter((tag) => tag.value !== tagValue));
   };
 
-  // กดปุ่ม Recommended Tags เพื่อเพิ่ม
   const handleRecommendTag = (tag: Tag) => {
     setSelectedTags((prev) =>
       prev.some((t) => t.value === tag.value) ? prev : [...prev, tag]
@@ -70,15 +52,17 @@ export default function TagsSearch() {
         options={tags}
         isMulti
         placeholder="Search and Select Tags..."
-        onChange={handleTagChange}
+        onChange={(selectedOptions) =>
+          handleTagChange(selectedOptions as Tag[] | null)
+        }
         value={selectedTags}
         className="mb-4"
       />
 
       <div className="flex flex-wrap gap-2 mt-4">
-        {selectedTags.map((tag, index) => (
+        {selectedTags.map((tag) => (
           <button
-            key={index}
+            key={tag.value}
             onClick={() => removeTag(tag.value)}
             className="px-[21px] py-2 text-xs rounded-lg bg-black text-white border border-black hover:bg-white hover:text-black transition-colors"
           >
@@ -86,12 +70,10 @@ export default function TagsSearch() {
           </button>
         ))}
       </div>
-
-      <p className="text-sm font-bold p-1 mt-4">Recommended Tags:</p>
       <div className="flex flex-wrap gap-2 justify-center mt-2">
-        {recommendedTags.map((tag, index) => (
+        {recommendedTags.map((tag) => (
           <button
-            key={index}
+            key={tag.value}
             onClick={() => handleRecommendTag(tag)}
             className={`px-[21px] py-2 text-xs rounded-lg border border-black ${
               selectedTags.some((t) => t.value === tag.value)
