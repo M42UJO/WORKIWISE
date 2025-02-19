@@ -197,6 +197,21 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
             ))}
           </div>
         </div>
+        <div className="flex flex-wrap gap-2 justify-center mt-2">
+        {recommendedTags.map((tag) => (
+          <button
+            key={tag.value}
+            onClick={() => handleRecommendTag(tag)}
+            className={`px-[21px] py-2 text-xs rounded-lg border border-black ${
+              selectedTags.some((t) => t.value === tag.value)
+                ? "bg-black text-white"
+                : "bg-white text-black"
+            } hover:bg-black hover:text-white transition-colors`}
+          >
+            {tag.label}
+          </button>
+        ))}
+      </div>
       </div>
 
       {/* Footer */}

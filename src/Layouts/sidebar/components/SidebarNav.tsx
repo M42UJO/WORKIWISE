@@ -1,8 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { tkState } from "../../../MainRecoil";
+import { GetdataAPI_Get } from "../../../MainCall";
 
 interface Workspace_Nav {
   space_id: number;
@@ -16,29 +14,23 @@ export default function SidebarNav() {
   const [isWorkspaceOpen, setWorkspaceOpen] = useState(false);
 
   const [workspaces_nav, setWorkspaces_Nav] = useState<Workspace_Nav[]>([]);
-  const tkmstate = useRecoilValue(tkState);
+
+
+  async function fetchData() {
+    try {
+      const response = await GetdataAPI_Get("/api/Workspace/GetWorkspace");
+
+      if (Array.isArray(response)) {
+        setWorkspaces_Nav(response);
+      } else {
+        console.warn("Data is not an array:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching workspaces:", error);
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://bsv-th-authorities.com/test_intern/api/Workspace/GetWorkspace",
-          {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${tkmstate.mtk}`,
-            },
-          }
-        );
-        if (Array.isArray(response.data)) {
-          // ตรวจสอบว่า response เป็น array
-          setWorkspaces_Nav(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -95,9 +87,8 @@ export default function SidebarNav() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={`size-5 ml-auto transition-transform ${
-              isWorkspaceOpen ? "rotate-180" : "rotate-0"
-            }`}
+            className={`size-5 ml-auto transition-transform ${isWorkspaceOpen ? "rotate-180" : "rotate-0"
+              }`}
           >
             <path
               strokeLinecap="round"
@@ -112,8 +103,7 @@ export default function SidebarNav() {
           <ul className="ml-4 mt-2 space-y-1">
             {workspaces_nav.map((workspace) => (
               <li key={workspace.space_id}>
-                <Link
-                  to={`/Dashboard/`}
+                <Link to={`/dashboard/${workspace.space_id}`}
                   className="block px-3 py-2 rounded-md text-sm text-gray-300 hover:bg-gray-700 transition"
                 >
                   {workspace.space_name}
@@ -122,6 +112,7 @@ export default function SidebarNav() {
             ))}
           </ul>
         )}
+
       </li>
     </ul>
   );

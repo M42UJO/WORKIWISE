@@ -35,9 +35,9 @@ export default function Router() {
           element: <Login />,
         },
         {
-          path: "/dashboard",
+          path: "/dashboard/:space_id",
           element: <ProtectedRoute element={<Layouts pageshow={<Dashboard />} headershow={<DashboardUser />} />} />,
-        },
+        },        
         {
           path: "/home",
           element: <ProtectedRoute element={<Layouts pageshow={<Home />} headershow={<HomeSearch />} />} />,
