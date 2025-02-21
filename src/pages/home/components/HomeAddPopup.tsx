@@ -21,17 +21,14 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
 
-  // ✅ ดึงข้อมูลแท็กจาก API
   const fetchTags = async () => {
     try {
-      console.log("Fetching tags...");
-      const response = await GetdataAPI_Get("/api/Workspace/GetAllTags");
-      console.log("Fetched Tags:", response);
+      const response = await GetdataAPI_Get("/api/Workspace/GetAllTags"); 
 
       if (Array.isArray(response)) {
         const formattedTags = response.map((tag: any) => ({
-          value: tag.tags_id.toString(), // ใช้ `tags_id` แทน `id`
-          label: tag.tags_name, // ใช้ `tags_name` แทน `name`
+          value: tag.tags_id.toString(), 
+          label: tag.tags_name, 
         }));
         setTags(formattedTags);
       } else {
@@ -72,7 +69,7 @@ const HomeAddPopup: React.FC<HomeAddPopupProps> = ({ open, onClose }) => {
 
       const payload = {
         workspace_name: workspaceName,
-        tags_list: selectedTags.map(tag => ({ tags_id: Number(tag.value) })), // ✅ แก้ให้ tags อยู่ในรูปแบบที่ API ต้องการ
+        tags_list: selectedTags.map(tag => ({ tags_id: Number(tag.value) })), 
         file_base64: base64Image,
         file_filename: "workspace_image.jpg",
         file_filetype: fileType,

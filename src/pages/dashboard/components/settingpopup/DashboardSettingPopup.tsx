@@ -9,10 +9,10 @@ import DashboardSettingTagsPopup from "./DashboardSettingTagsPopup";
 import DashboardSettingPermissionsPopup from "./DashboardSettingPermissionsPopup";
 import DashboardSettingDeletePopup from "./DashboardSettingDeletePopup";
 
-interface DashboardSettingPopupProps { 
+interface DashboardSettingPopupProps {
     open: boolean;
     onClose: () => void;
-    space_id?: number;  
+    space_id?: number;
     workspaceName: string;
 }
 
@@ -91,11 +91,11 @@ const DashboardSettingPopup: React.FC<DashboardSettingPopupProps> = ({ open, onC
             </Dialog>
 
             {/* Sub Popups */}
-            {activePopup === "image" && <DashboardSettingImagePopup open={true} onClose={handlePopupClose} />}
-            {activePopup === "rename" && <DashboardSettingRenamePopup open={true} onClose={handlePopupClose} />}
-            {activePopup === "tags" && <DashboardSettingTagsPopup open={true} onClose={handlePopupClose} />}
-            {activePopup === "permissions" && <DashboardSettingPermissionsPopup open={true} onClose={handlePopupClose} />}
-            {activePopup === "delete" && <DashboardSettingDeletePopup open={true} onClose={handlePopupClose} />}
+            {activePopup === "image" && (<DashboardSettingImagePopup open={true} onClose={handlePopupClose} />)}
+            {activePopup === "rename" && (<DashboardSettingRenamePopup open={true} onClose={handlePopupClose} space_id={space_id ?? 0} />)}
+            {activePopup === "tags" && (<DashboardSettingTagsPopup open={true} onClose={handlePopupClose} space_id={space_id ?? 0}/>)}
+            {activePopup === "permissions" && (<DashboardSettingPermissionsPopup open={true} onClose={handlePopupClose} />)}
+            {activePopup === "delete" && (<DashboardSettingDeletePopup open={true} onClose={handlePopupClose} />)}
         </>
     );
 };

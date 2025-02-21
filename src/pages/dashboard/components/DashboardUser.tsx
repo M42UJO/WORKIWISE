@@ -11,8 +11,8 @@ interface WorkspaceData {
 }
 
 export default function DashboardUser() {
-  const { space_id } = useParams<{ space_id: string }>();
-  const numericSpaceId = space_id ? Number(space_id) : null; // แปลงเป็นตัวเลข
+  const { space_id } = useParams<{ space_id: string }>(); 
+  const numericSpaceId = space_id ? Number(space_id) : 0;   
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [workspace, setWorkspace] = useState<WorkspaceData | null>(null);
 
@@ -23,12 +23,10 @@ export default function DashboardUser() {
 
     async function fetchWorkspace() {
       try {
-        console.log(`Fetching workspace for space_id: ${numericSpaceId}`); // ตรวจสอบค่า space_id
         const response = await GetdataAPI_Get(`/api/Workspace/GetWorkspace?space_id=${numericSpaceId}`);
-        console.log("API Response:", response); // ตรวจสอบค่า API Response
 
         if (response && Array.isArray(response) && response.length > 0 && isMounted) {
-          setWorkspace(response[0]); // ดึงค่าตัวแรกของ array
+          setWorkspace(response[0]); 
         } else {
           console.warn("No workspace data found.");
         }
@@ -63,7 +61,7 @@ export default function DashboardUser() {
       <DashboardSettingPopup
         open={isPopupOpen}
         onClose={() => setPopupOpen(false)}
-        space_id={numericSpaceId ?? undefined}  // ป้องกัน error ถ้า space_id เป็น null
+        space_id={numericSpaceId ?? undefined}
         workspaceName={workspace?.space_name || "User's Workspace"}
       />
 
